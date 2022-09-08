@@ -12,3 +12,17 @@ int main( ){
 	ofRunApp( new ofApp());
 
 }
+
+/*
+
+	Particles color - change by pressing "t"
+	Pause simulation - pressing "p"
+	Increase velocity - pressing "d"
+	Decrease velocity - pressing "a"
+	
+	Magnifying quad
+		-left click draws area
+		-right click removes area
+		-any particle entering will be tripled its size
+
+*/
