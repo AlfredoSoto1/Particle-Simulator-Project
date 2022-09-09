@@ -21,4 +21,8 @@ Any project that doesn't compile will receive a 0.
 If a partner has no commits in the repositories, he will receive a 0.
 
 ## Student Notes
-If you have any notes to add for your TA about the project specs or creative additions, you may do so in this section of the README
+<h3>Basic Usage</h3>
+<p> + By pressing the key "t" you can toggle between three colors (red, green, blue) for all particles</p>
+
+<h3>NEW Features</h3>
+<p> + Toggle between three basic colors for all particles using key "t"</p>
