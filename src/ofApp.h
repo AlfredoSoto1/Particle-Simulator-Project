@@ -25,6 +25,7 @@ class ofApp : public ofBaseApp{
 		
 		uint64_t lastFrame;
 		uint64_t frameDif;
+		uint64_t lastTime;
 		unsigned int frameCount;
 
 		particleMode currentMode;
