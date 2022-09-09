@@ -36,6 +36,7 @@ void ofApp::resetParticles(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+
 	for(unsigned int i = 0; i < p.size(); i++){
 		switch(this->colorState) {
 			case 0:
@@ -89,6 +90,15 @@ void ofApp::draw(){
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
 	ofDrawBitmapString(currentColorState, 10, 200);
+
+	frameDif = lastFrame - ofGetSystemTimeMillis();
+	lastFrame = ofGetSystemTimeMillis();
+	if(frameCount > frameDif * 1000){
+		string framePrint = string("Framerate: ") + std::to_string(frameCount);
+		ofDrawBitmapString(framePrint, 10, 150);
+		frameCount = 0;
+	}
+	frameCount++;
 }
 
 //--------------------------------------------------------------

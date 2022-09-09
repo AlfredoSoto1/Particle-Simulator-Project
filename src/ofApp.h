@@ -23,6 +23,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+		uint64_t lastFrame;
+		uint64_t frameDif;
+		unsigned int frameCount;
+
 		particleMode currentMode;
 		string currentModeStr; 
 		string currentColorState; 
@@ -34,9 +38,7 @@ class ofApp : public ofBaseApp{
 		glm::vec3 generalParticleColor = glm::vec3(1.0);
 
 		const int maxColorStates = 3;
-
 		int colorState = 0; // 0 = red, 1 = green, 2 = blue
-
 		bool colorToggleFlag = false;
 		
 };
