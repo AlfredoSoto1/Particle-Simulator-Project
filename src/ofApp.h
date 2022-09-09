@@ -25,9 +25,18 @@ class ofApp : public ofBaseApp{
 		
 		particleMode currentMode;
 		string currentModeStr; 
+		string currentColorState; 
 
 		vector <Particle> p;
 		vector <glm::vec3> attractPoints;
 		vector <glm::vec3> attractPointsWithMovement;
+
+		glm::vec3 generalParticleColor = glm::vec3(1.0);
+
+		const int maxColorStates = 3;
+
+		int colorState = 0; // 0 = red, 1 = green, 2 = blue
+
+		bool colorToggleFlag = false;
 		
 };

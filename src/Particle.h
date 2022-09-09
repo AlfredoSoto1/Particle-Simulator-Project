@@ -21,6 +21,10 @@ class Particle{
 		void update();
 		void draw();		
 		
+		glm::vec3 particleColor = glm::vec3(1.0);
+
+		int red = 0;
+
 		glm::vec3 pos;
 		glm::vec3 vel;
 		glm::vec3 frc;

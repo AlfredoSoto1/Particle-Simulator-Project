@@ -1,5 +1,7 @@
 #include "ofApp.h"
 
+#include <iostream>
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetVerticalSync(true);
@@ -9,6 +11,7 @@ void ofApp::setup(){
 	currentMode = PARTICLE_MODE_ATTRACT;
 
 	currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse"; 
+	currentColorState = "Color state Red";
 
 	resetParticles();
 }
@@ -34,6 +37,26 @@ void ofApp::resetParticles(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	for(unsigned int i = 0; i < p.size(); i++){
+		switch(this->colorState) {
+			case 0:
+			p[i].red = 255;
+			p[i].particleColor.r = 1.0;
+			p[i].particleColor.g = 0.0;
+			p[i].particleColor.b = 0.0;
+			break;
+			case 1:
+			p[i].red = 0;
+			p[i].particleColor.r = 0.0;
+			p[i].particleColor.g = 1.0;
+			p[i].particleColor.b = 0.0;
+			break;
+			case 2:
+			p[i].red = 125;
+			p[i].particleColor.r = 0.0;
+			p[i].particleColor.g = 0.0;
+			p[i].particleColor.b = 1.0;
+			break;
+		}
 		p[i].setMode(currentMode);
 		p[i].update();
 	}
@@ -52,7 +75,7 @@ void ofApp::draw(){
 	for(unsigned int i = 0; i < p.size(); i++){
 		p[i].draw();
 	}
-	
+
 	ofSetColor(190);
 	if( currentMode == PARTICLE_MODE_NEAREST_POINTS ){
 		for(unsigned int i = 0; i < attractPoints.size(); i++){
@@ -65,6 +88,7 @@ void ofApp::draw(){
 
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
+	ofDrawBitmapString(currentColorState, 10, 200);
 }
 
 //--------------------------------------------------------------
@@ -90,11 +114,33 @@ void ofApp::keyPressed(int key){
 	if( key == ' ' ){
 		resetParticles();
 	}
+
+	//Toggles color of particles from: red -> green -> blue and returns to red after blue
+	if(key == 't')  {
+		if(!this->colorToggleFlag) {
+			this->colorState = (this->colorState + 1) % this->maxColorStates;
+			this->colorToggleFlag = true;
+
+			switch(this->colorState) {
+			case 0:
+			currentColorState = "Color state Red";
+			break;
+			case 1:
+			currentColorState = "Color state Green";
+			break;
+			case 2:
+			currentColorState = "Color state Blue";
+			break;
+			}
+		}
+	}else {
+		this->colorToggleFlag = false;
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	this->colorToggleFlag = false;
 }
 
 //--------------------------------------------------------------
