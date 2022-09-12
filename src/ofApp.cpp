@@ -40,19 +40,16 @@ void ofApp::update(){
 	for(unsigned int i = 0; i < p.size(); i++){
 		switch(this->colorState) {
 			case 0:
-			p[i].red = 255;
 			p[i].particleColor.r = 1.0;
 			p[i].particleColor.g = 0.0;
 			p[i].particleColor.b = 0.0;
 			break;
 			case 1:
-			p[i].red = 0;
 			p[i].particleColor.r = 0.0;
 			p[i].particleColor.g = 1.0;
 			p[i].particleColor.b = 0.0;
 			break;
 			case 2:
-			p[i].red = 125;
 			p[i].particleColor.r = 0.0;
 			p[i].particleColor.g = 0.0;
 			p[i].particleColor.b = 1.0;

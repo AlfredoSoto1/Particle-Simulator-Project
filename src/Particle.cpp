@@ -180,7 +180,6 @@ void Particle::draw(){
 
 	//update color
 	ofSetColor((int)(particleColor.r * 255), (int)(particleColor.g * 255), (int)(particleColor.b * 255));
-	// ofSetColor(this->red, 0, 0);
 
 	ofDrawCircle(pos.x, pos.y, scale * 4.0);
 }
