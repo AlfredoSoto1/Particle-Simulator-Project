@@ -5,8 +5,12 @@
 
 class Magnifier {
     public:
+
+    Magnifier();
+    ~Magnifier();
     
-    
+    void draw();
+    void update();
 
     private:
 
