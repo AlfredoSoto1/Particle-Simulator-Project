@@ -9,13 +9,22 @@ class Magnifier {
     Magnifier();
     ~Magnifier();
     
+    void setup();
     void draw();
     void update();
 
+    void loadLastParameters(const int& x, const int& y, const int& button);
+    void loadInitialParameters(const int& x, const int& y, const int& button);
+
     private:
 
-    glm::vec2 position;
-    glm::vec2 scale;
+    bool isGettingLastParametersFlag;
+    bool isGettingInitialParametersFlag;
+
+    glm::ivec2 mousePosition;
+
+    glm::ivec2 position;
+    glm::ivec2 scale;
 
     float boundingBoxThickness;
 

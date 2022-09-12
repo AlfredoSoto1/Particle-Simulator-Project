@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "Particle.h"
+#include "magnifier.h"
 
 class ofApp : public ofBaseApp{
 
@@ -30,4 +31,5 @@ class ofApp : public ofBaseApp{
 		vector <glm::vec3> attractPoints;
 		vector <glm::vec3> attractPointsWithMovement;
 		
+		Magnifier magnifier;
 };

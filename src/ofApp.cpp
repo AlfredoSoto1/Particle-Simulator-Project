@@ -11,6 +11,9 @@ void ofApp::setup(){
 	currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse"; 
 
 	resetParticles();
+
+	//magnifier instance
+	magnifier.setup();
 }
 
 //--------------------------------------------------------------
@@ -109,7 +112,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+	magnifier.loadInitialParameters(x, y, button);
 }
 
 //--------------------------------------------------------------
