@@ -9,6 +9,10 @@ class Magnifier {
     Magnifier();
     ~Magnifier();
     
+    glm::ivec2& getPosition();
+    glm::ivec2& getInitialPosition();
+    glm::ivec2& getLastPosition();
+
     void setup();
     void draw();
     void update();
@@ -21,7 +25,8 @@ class Magnifier {
     bool isGettingLastParametersFlag;
     bool isGettingInitialParametersFlag;
 
-    glm::ivec2 mousePosition;
+    glm::ivec2 lastPosition;
+    glm::ivec2 initialPosition;
 
     glm::ivec2 position;
     glm::ivec2 scale;

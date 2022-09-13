@@ -12,8 +12,7 @@ void ofApp::setup(){
 
 	resetParticles();
 
-	//magnifier instance
-	magnifier.setup();
+	// ofFpsCounter
 }
 
 //--------------------------------------------------------------
@@ -68,6 +67,10 @@ void ofApp::draw(){
 
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
+
+
+	ofDrawBitmapString("\n\nMag init Pos " + std::to_string(magnifier.getInitialPosition().x) + ", " + std::to_string(magnifier.getInitialPosition().y), 100, 20);
+	ofDrawBitmapString("\n\nMag last Pos " + std::to_string(magnifier.getLastPosition().x) + ", " + std::to_string(magnifier.getLastPosition().y), 150, 20);
 }
 
 //--------------------------------------------------------------
@@ -117,7 +120,7 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+	magnifier.loadLastParameters(x, y, button);
 }
 
 //--------------------------------------------------------------
