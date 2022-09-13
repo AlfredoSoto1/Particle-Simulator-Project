@@ -65,12 +65,15 @@ void ofApp::draw(){
 		}
 	}
 
+	magnifier.draw();
+
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
 
 
-	ofDrawBitmapString("\n\nMag init Pos " + std::to_string(magnifier.getInitialPosition().x) + ", " + std::to_string(magnifier.getInitialPosition().y), 100, 20);
-	ofDrawBitmapString("\n\nMag last Pos " + std::to_string(magnifier.getLastPosition().x) + ", " + std::to_string(magnifier.getLastPosition().y), 150, 20);
+	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
+	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
+
 }
 
 //--------------------------------------------------------------
@@ -110,17 +113,17 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+	magnifier.loadDynamicPosition(x, y);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	magnifier.loadInitialParameters(x, y, button);
+	magnifier.loadInitialPosition(x, y, button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-	magnifier.loadLastParameters(x, y, button);
+	magnifier.loadFinalPosition(x, y, button);
 }
 
 //--------------------------------------------------------------
