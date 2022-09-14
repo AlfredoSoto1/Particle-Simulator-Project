@@ -19,13 +19,11 @@ class Magnifier {
     void loadDraggedPosition(const int& x, const int& y);
     void loadInitialPosition(const int& x, const int& y, const int& button);
 
-    //temp
-    int prefferedMouseToDrag;
     private:
-
 
     bool holdClick;
 
+    int currentButtonClicked;
     float boundingBoxThickness;
 
     glm::ivec2 scale;
