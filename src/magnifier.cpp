@@ -1,8 +1,12 @@
 #include "magnifier.h"
 
 Magnifier::Magnifier() {
-    isGettingLastParametersFlag = false;
-    isGettingInitialParametersFlag = false;
+    holdClick = false;
+
+    scale.x = 0;
+    scale.y = 0;
+
+    boundingBoxThickness = 5.0f;
 
     //initial box color
     boundingBoxColor.r = 255;
@@ -22,34 +26,27 @@ glm::ivec2& Magnifier::getScale() {
     return this->scale;
 }
 
-void Magnifier::setup() {
-
-}
-
-void Magnifier::loadDynamicPosition(const int& x, const int& y) {
-    this->position.x = x;
-    this->position.y = y;
-}
-
-void Magnifier::loadInitialPosition(const int& x, const int& y, const int& button) {
-    isGettingLastParametersFlag = true;
+void Magnifier::reset(const int& button) {
     if(button == OF_MOUSE_BUTTON_LEFT) {
-        if(isGettingInitialParametersFlag) {
-            initialPosition.x = x;
-            initialPosition.y = y;
-            isGettingInitialParametersFlag = false;
-        }
+        holdClick = false;
+        prefferedMouseToDrag = button;
     }
 }
 
-void Magnifier::loadFinalPosition(const int& x, const int& y, const int& button) {
-    isGettingInitialParametersFlag = true;
+void Magnifier::loadDraggedPosition(const int& x, const int& y) {
+    this->lastPosition.x = x;
+    this->lastPosition.y = y;
+}
 
+void Magnifier::loadInitialPosition(const int& x, const int& y, const int& button) {
     if(button == OF_MOUSE_BUTTON_LEFT) {
-        if(isGettingLastParametersFlag) {
+        if(!holdClick) {
+            initialPosition.x = x;
+            initialPosition.y = y;
             lastPosition.x = x;
             lastPosition.y = y;
-            isGettingLastParametersFlag= false;
+            prefferedMouseToDrag = button;
+            holdClick = true;
         }
     }
 }
@@ -58,13 +55,18 @@ void Magnifier::draw() {
     
     ofSetColor(boundingBoxColor.r, boundingBoxColor.g, boundingBoxColor.b);
 
-    float scaleX = position.x - initialPosition.x;
-    float scaleY = position.y - initialPosition.y;
-
-    ofDrawRectangle((float)initialPosition.x, (float)initialPosition.y, scaleX, scaleY);
+    ofNoFill();
+    ofSetLineWidth(boundingBoxThickness);
+    ofDrawRectangle(initialPosition.x, initialPosition.y, scale.x, scale.y);
+    ofFill();
 }
 
 void Magnifier::update() {
-    
+    if(holdClick) {
+        if(prefferedMouseToDrag == OF_MOUSE_BUTTON_LEFT) {
+            scale.x = lastPosition.x - initialPosition.x;
+            scale.y = lastPosition.y - initialPosition.y;
+        }
+    }
 }
 

@@ -44,7 +44,9 @@ void ofApp::update(){
 	for(unsigned int i = 0; i < attractPointsWithMovement.size(); i++){
 		attractPointsWithMovement[i].x = attractPoints[i].x + ofSignedNoise(i * 10, ofGetElapsedTimef() * 0.7) * 12.0;
 		attractPointsWithMovement[i].y = attractPoints[i].y + ofSignedNoise(i * -10, ofGetElapsedTimef() * 0.7) * 12.0;
-	}	
+	}
+
+	magnifier.update();
 }
 
 //--------------------------------------------------------------
@@ -73,6 +75,7 @@ void ofApp::draw(){
 
 	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
 	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
+	ofDrawBitmapString("Mag mouse button type " + std::to_string(magnifier.prefferedMouseToDrag), 10, 140);
 
 }
 
@@ -113,7 +116,7 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-	magnifier.loadDynamicPosition(x, y);
+	magnifier.loadDraggedPosition(x, y);
 }
 
 //--------------------------------------------------------------
@@ -123,7 +126,7 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-	magnifier.loadFinalPosition(x, y, button);
+	magnifier.reset(button);
 }
 
 //--------------------------------------------------------------

@@ -12,23 +12,23 @@ class Magnifier {
     glm::ivec2& getScale();
     glm::ivec2& getPosition();
 
-    void setup();
     void draw();
     void update();
+    void reset(const int& button);
 
-    void loadDynamicPosition(const int& x, const int& y);
+    void loadDraggedPosition(const int& x, const int& y);
     void loadInitialPosition(const int& x, const int& y, const int& button);
-    void loadFinalPosition(const int& x, const int& y, const int& button);
 
+    //temp
+    int prefferedMouseToDrag;
     private:
 
-    bool isGettingLastParametersFlag;
-    bool isGettingInitialParametersFlag;
 
-    int boundingBoxThickness;
+    bool holdClick;
+
+    float boundingBoxThickness;
 
     glm::ivec2 scale;
-    glm::ivec2 position;
     glm::ivec2 lastPosition;
     glm::ivec2 initialPosition;
 
