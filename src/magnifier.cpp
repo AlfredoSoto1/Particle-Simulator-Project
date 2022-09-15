@@ -50,17 +50,32 @@ void Magnifier::loadInitialPosition(const int& x, const int& y, const int& butto
         }
     }
 
-    if(x > initialPosition.x && x < lastPosition.x && y > initialPosition.y && y < lastPosition.y) {
+    bool xPossibleBoundries = (x > initialPosition.x && x < lastPosition.x) || (x < initialPosition.x && x > lastPosition.x);
+    bool yPossibleBoundries = (y > initialPosition.y && y < lastPosition.y) || (y < initialPosition.y && y > lastPosition.y);
+
+    if(xPossibleBoundries && yPossibleBoundries) {
        if(currentButtonClicked == OF_MOUSE_BUTTON_RIGHT) {
-             initialPosition.x = 0;
+            initialPosition.x = 0;
             initialPosition.y = 0;
             lastPosition.x = 0;
             lastPosition.y = 0;
+            scale.x = 0;
+            scale.y = 0;
         }
+    }
+}
+
+void Magnifier::magnifyParticle(Particle* particle) {
+
+    glm::vec3& particlePosition = particle->pos;
+
+    bool xPossibleBoundries = (particlePosition.x > initialPosition.x && particlePosition.x < lastPosition.x) || (particlePosition.x < initialPosition.x && particlePosition.x > lastPosition.x);
+    bool yPossibleBoundries = (particlePosition.y > initialPosition.y && particlePosition.y < lastPosition.y) || (particlePosition.y < initialPosition.y && particlePosition.y > lastPosition.y);
+
+    if(xPossibleBoundries && yPossibleBoundries) {
+        particle->magnifyingfactor = 3.0;
     }else {
-        boundingBoxColor.r = 255;
-        boundingBoxColor.g = 0;
-        boundingBoxColor.b = 0;
+        particle->magnifyingfactor = 1.0;
     }
 }
 

@@ -2,6 +2,7 @@
 #define _MAGNIFIER_DEFINED
 
 #include "ofMain.h"
+#include "Particle.h"
 
 class Magnifier {
     public:
@@ -18,6 +19,8 @@ class Magnifier {
 
     void loadDraggedPosition(const int& x, const int& y);
     void loadInitialPosition(const int& x, const int& y, const int& button);
+
+    void magnifyParticle(Particle* particle);
 
     private:
 
