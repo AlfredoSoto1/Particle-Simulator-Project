@@ -4,7 +4,7 @@
 void ofApp::setup(){
 	ofSetVerticalSync(true);
 	
-	int num = 1500;
+	int num = 2;
 	p.assign(num, Particle());
 	currentMode = PARTICLE_MODE_ATTRACT;
 
@@ -35,6 +35,7 @@ void ofApp::resetParticles(){
 void ofApp::update(){
 	for(unsigned int i = 0; i < p.size(); i++){
 		p[i].setMode(currentMode);
+		p[i].otherParticles = &p;
 		p[i].update();
 	}
 	
@@ -79,13 +80,17 @@ void ofApp::keyPressed(int key){
 	}
 	if( key == '3'){
 		currentMode = PARTICLE_MODE_NEAREST_POINTS;
-		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS:"; 						
+		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS: attract to random points"; 						
 	}
 	if( key == '4'){
 		currentMode = PARTICLE_MODE_NOISE;
 		currentModeStr = "4 - PARTICLE_MODE_NOISE: snow particle simulation"; 						
 		resetParticles();
-	}	
+	}
+	if(key =='5') {
+		currentMode = PARTICLE_MODE_ADD_MASSES;
+		currentModeStr = "5 - PARTICLE_MODE_ADD_MASSES: gravitational simulation"; 	
+	}
 		
 	if( key == ' ' ){
 		resetParticles();

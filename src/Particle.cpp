@@ -3,6 +3,7 @@
 //------------------------------------------------------------------
 Particle::Particle(){
 	attractPoints = NULL;
+	mass = 1.0;
 }
 
 //------------------------------------------------------------------
@@ -40,6 +41,18 @@ void Particle::reset(){
 	}
 }
 
+void Particle::reflectInteraction() {
+	glm::vec3 attractPt(0, 0, 0);
+	for(int i = 0; i < (*otherParticles).size();i++) {
+		attractPt = (*otherParticles)[i].pos;
+		frc = attractPt-pos; // we get the attraction force/vector by looking at the mouse pos relative to our pos
+		frc = glm::normalize(frc); //by normalizing we disregard how close the particle is to the attraction point
+		
+		vel *= drag; //apply drag
+		vel += frc * 0.1; //apply force
+	}
+}
+
 void Particle::attractToPoint(int x, int y ){
 	glm::vec3 attractPt(x, y, 0);
 		frc = attractPt-pos; // we get the attraction force/vector by looking at the mouse pos relative to our pos
@@ -71,8 +84,9 @@ void Particle::repelFromPoint(int x, int y){
 void Particle::update(){
 
 	// APPLY THE FORCES BASED ON WHICH MODE WE ARE IN 
-	
-	if( mode == PARTICLE_MODE_ATTRACT ){
+	if(mode == PARTICLE_MODE_ADD_MASSES) {
+		reflectInteraction();
+	}else if( mode == PARTICLE_MODE_ATTRACT ){
 		attractToPoint(ofGetMouseX(), ofGetMouseY());
 	}
 	else if( mode == PARTICLE_MODE_REPEL ){

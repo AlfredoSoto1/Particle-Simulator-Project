@@ -5,7 +5,8 @@ enum particleMode{
 	PARTICLE_MODE_ATTRACT = 0,
 	PARTICLE_MODE_REPEL,
 	PARTICLE_MODE_NEAREST_POINTS,
-	PARTICLE_MODE_NOISE
+	PARTICLE_MODE_NOISE,
+	PARTICLE_MODE_ADD_MASSES
 };
 
 class Particle{
@@ -21,6 +22,10 @@ class Particle{
 		void update();
 		void draw();		
 		
+		void reflectInteraction();
+
+		vector<Particle>* otherParticles;
+
 		glm::vec3 pos;
 		glm::vec3 vel;
 		glm::vec3 frc;
@@ -28,6 +33,8 @@ class Particle{
 		float drag; 
 		float uniqueVal;
 		float scale;
+
+		float mass;
 		
 		particleMode mode;
 		
