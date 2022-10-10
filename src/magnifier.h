@@ -5,7 +5,7 @@
 #include "Particle.h"
 
 class Magnifier {
-    public:
+public:
 
     Magnifier();
     ~Magnifier();
@@ -22,7 +22,7 @@ class Magnifier {
 
     void magnifyParticle(Particle* particle);
 
-    private:
+private:
 
     bool holdClick;
 
@@ -33,8 +33,7 @@ class Magnifier {
     glm::ivec2 lastPosition;
     glm::ivec2 initialPosition;
 
-    glm::ivec3 boundingBoxColor;
-
+    ofColor boundingBoxColor;
 };
 
 #endif

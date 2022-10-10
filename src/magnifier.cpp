@@ -9,9 +9,7 @@ Magnifier::Magnifier() {
     boundingBoxThickness = 5.0f;
 
     //initial box color
-    boundingBoxColor.r = 255;
-    boundingBoxColor.g = 0;
-    boundingBoxColor.b = 0;
+    boundingBoxColor.set(255, 0, 0);
 }
 
 Magnifier::~Magnifier() {
@@ -83,7 +81,7 @@ void Magnifier::magnifyParticle(Particle* particle) {
 
 void Magnifier::draw() {
     
-    ofSetColor(boundingBoxColor.r, boundingBoxColor.g, boundingBoxColor.b);
+    ofSetColor(boundingBoxColor);
 
     ofNoFill();
     ofSetLineWidth(boundingBoxThickness);
