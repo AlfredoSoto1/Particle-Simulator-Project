@@ -12,8 +12,6 @@ void ofApp::setup(){
 
 	resetParticles();
 
-	//magnifier instance
-	magnifier.setup();
 }
 
 //--------------------------------------------------------------
@@ -112,7 +110,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	magnifier.loadInitialParameters(x, y, button);
+	
 }
 
 //--------------------------------------------------------------
