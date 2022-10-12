@@ -3,22 +3,35 @@
 
 Recorder::Recorder() {
     lapsePerType = 0;
+    replaySpeed = 1;
+    lapsePerRecordedKey = 0;
+    nextFrame = 0;
 }
 
 Recorder::~Recorder() {
-
+    dispose();
 }
 
 bool Recorder::isRecording() {
     return _isRecording;
 }
 
+bool Recorder::isOnReplay() {
+    return _isReplaying;
+}
+
 int Recorder::getRecordedKey(int index) {
-    return 0;//recordedkeys[index].key;
+    return recordedkeys[index].key;
 }
 
 int Recorder::getRecordedKeysCount() {
-    return 0;//recordedkeys.size();
+    return recordedkeys.size();
+}
+
+int Recorder::getCurrentPlayBackKey() {
+    if(recordedkeys.size() == 0)
+        return -1;
+    return recordedkeys[nextFrame].key;
 }
 
 void Recorder::draw() {
@@ -26,6 +39,23 @@ void Recorder::draw() {
 }
 
 void Recorder::update() {
+
+    if(_isReplaying) {
+
+        if(nextFrame >= recordedkeys.size()) {
+           endReplay();
+           return;
+        }
+
+        int actionLapse = recordedkeys[nextFrame].lapse;
+        if(lapsePerRecordedKey >= actionLapse) {
+            lapsePerRecordedKey = 0;
+            nextFrame++;
+        }else {
+            lapsePerRecordedKey += replaySpeed;
+        }
+    }
+
     if(!_isRecording)
         return;
     lapsePerType++;
@@ -34,11 +64,15 @@ void Recorder::update() {
 void Recorder::record(int key) {
     if(!_isRecording)
         return;
-    // recordedkeys.push_back({key, lapsePerType});
+    if(_isReplaying)
+        return;
+    recordedkeys.push_back({key, lapsePerType});
     lapsePerType = 0;
 }
 
 void Recorder::startRecording() {
+    if(_isReplaying)
+        return;
     if(_isRecording)
         return;
     _isRecording = true;
@@ -46,6 +80,8 @@ void Recorder::startRecording() {
 }
 
 void Recorder::stopRecording() {
+    if(_isReplaying)
+        return;
     if(!_isRecording)
         return;
     _isRecording = false;
@@ -58,12 +94,21 @@ void Recorder::pause() {
 }
 
 void Recorder::dispose() {
-    if(_isDisposed)
+     if(_isRecording)
         return;
-    
+    recordedkeys.clear();
 }
 
-void Recorder::replay(int gameTick) {
+void Recorder::endReplay() {
+    if(!_isReplaying)
+        return;
+    _isReplaying = false;
+}
 
+void Recorder::replay() {
+    if(_isRecording && !_isReplaying)
+        return;
+
+    _isReplaying = true;
 }
 

@@ -3,20 +3,17 @@
 
 #include <vector>
 
- struct RecordedKey {
-    int key;
-    int lapse;
-};
-
 class Recorder {
 public:
     Recorder();
     ~Recorder();
 
     bool isRecording();
+    bool isOnReplay();
     
     int getRecordedKey(int index);
     int getRecordedKeysCount();
+    int getCurrentPlayBackKey();
 
     void startRecording();
     void stopRecording();
@@ -24,8 +21,9 @@ public:
     void addUsableKeys(unsigned int length, int* keys);
     void record(int key);
     void pause();
+    void replay();
+    void endReplay();
     void dispose();
-    void replay(int gameTick);
 
     void draw();
     void update();
@@ -33,11 +31,18 @@ private:
 
     bool _isPaused = false;
     bool _isRecording = false;
-    bool _isDisposed = false;
+    bool _isReplaying = false;
 
-    int lapsePerType;
+    unsigned int lapsePerType;
+    unsigned int replaySpeed;
+    unsigned int lapsePerRecordedKey;
+    unsigned int nextFrame;
+    struct RecordedKey {
+        int key;
+        unsigned int lapse;
+    };
 
-    // vector<int> recordedkeys;
+    std::vector<RecordedKey> recordedkeys;
 };
 
 #endif

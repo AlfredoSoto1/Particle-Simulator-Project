@@ -46,6 +46,31 @@ void ofApp::update(){
 	}
 
 	recorder.update();
+
+	/*
+		replay
+	*/
+	if( recorder.getCurrentPlayBackKey() == '1' && recorder.isOnReplay()){
+		currentMode = PARTICLE_MODE_ATTRACT;
+		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse";	
+	}
+	if( recorder.getCurrentPlayBackKey() == '2' && recorder.isOnReplay()){
+		currentMode = PARTICLE_MODE_REPEL;
+		currentModeStr = "2 - PARTICLE_MODE_REPEL: repels from mouse"; 				
+	}
+	if( recorder.getCurrentPlayBackKey() == '3' && recorder.isOnReplay()){
+		currentMode = PARTICLE_MODE_NEAREST_POINTS;
+		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS:"; 						
+	}
+	if( recorder.getCurrentPlayBackKey() == '4' && recorder.isOnReplay()){
+		currentMode = PARTICLE_MODE_NOISE;
+		currentModeStr = "4 - PARTICLE_MODE_NOISE: snow particle simulation"; 						
+		resetParticles();
+	}	
+	
+	if( recorder.getCurrentPlayBackKey() == ' ' && recorder.isOnReplay()){
+		resetParticles();
+	}
 }
 
 //--------------------------------------------------------------
@@ -72,16 +97,15 @@ void ofApp::draw(){
 	string str = recorder.isRecording() ? "true" : "false";
 	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
 
-	string recKeys = "";
+	string str1 = recorder.isOnReplay() ? "true" : "false";
+	ofDrawBitmapString("\n\nIs Replaying: " + str1, 10, 100);
 
-	for (int i = 0; i < recorder.getRecordedKeysCount(); i++) {
-		recKeys += ", " + (char)recorder.getRecordedKey(i);
-	}
-	ofDrawBitmapString("\n\nIs Recorded keys: " + recKeys, 10, 60);
+	ofDrawBitmapString("\n\nIs Recorded keys: " + std::to_string(recorder.getRecordedKeysCount()), 10, 130);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
 	if( key == '1'){
 		currentMode = PARTICLE_MODE_ATTRACT;
 		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse";	
@@ -104,7 +128,7 @@ void ofApp::keyPressed(int key){
 		recorder.record(key);	
 	}	
 	
-	if( key == ' ' ){
+	if( key == ' '){
 		resetParticles();
 		recorder.record(key);	
 	}
@@ -113,6 +137,12 @@ void ofApp::keyPressed(int key){
 		recorder.startRecording();
 	}else if(key == 'r') {
 		recorder.stopRecording();
+	}
+
+	if(key == 'p' && !recorder.isOnReplay()) {
+		recorder.replay();
+	}else if(key == 'p') {
+		recorder.endReplay();
 	}
 }
 
