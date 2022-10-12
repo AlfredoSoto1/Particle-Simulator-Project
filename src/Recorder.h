@@ -10,6 +10,7 @@ public:
 
     bool isRecording();
     
+    int getRecordedKey(int index);
     int getRecordedKeysCount();
 
     void startRecording();

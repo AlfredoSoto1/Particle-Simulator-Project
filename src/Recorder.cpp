@@ -13,6 +13,10 @@ bool Recorder::isRecording() {
     return _isRecording;
 }
 
+int Recorder::getRecordedKey(int index) {
+    return recordedkeys[index].key;
+}
+
 int Recorder::getRecordedKeysCount() {
     return recordedkeys.size();
 }

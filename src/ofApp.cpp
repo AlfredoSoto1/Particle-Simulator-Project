@@ -72,14 +72,12 @@ void ofApp::draw(){
 	string str = recorder.isRecording() ? "true" : "false";
 	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
 
-	string recKeys;
+	string recKeys = "";
 
 	for (int i = 0; i < recorder.getRecordedKeysCount(); i++) {
-		// recKeys += recorder.getRecordedKey(i);
+		recKeys += ", " + (char)recorder.getRecordedKey(i);
 	}
-	 
-
-	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
+	ofDrawBitmapString("\n\nIs Recorded keys: " + recKeys, 10, 60);
 }
 
 //--------------------------------------------------------------
