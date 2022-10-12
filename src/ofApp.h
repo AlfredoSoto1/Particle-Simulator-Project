@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Recorder.h"
 #include "Particle.h"
 class ofApp : public ofBaseApp{
 
@@ -28,4 +29,6 @@ class ofApp : public ofBaseApp{
 		vector <Particle> p;
 		vector <glm::vec3> attractPoints;
 		vector <glm::vec3> attractPointsWithMovement;
+
+		Recorder recorder;
 };

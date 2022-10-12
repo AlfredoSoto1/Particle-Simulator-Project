@@ -91,6 +91,10 @@ void ofApp::keyPressed(int key){
 	if( key == ' ' ){
 		resetParticles();
 	}
+
+	if(key == 'r') {
+		recorder.record();
+	}
 }
 
 //--------------------------------------------------------------
