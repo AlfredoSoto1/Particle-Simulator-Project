@@ -29,13 +29,30 @@ int Recorder::getRecordedKeysCount() {
 }
 
 int Recorder::getCurrentPlayBackKey() {
-    if(recordedkeys.size() == 0)
+    if(recordedkeys.size() == 0 || !_isReplaying)
         return -1;
     return recordedkeys[nextFrame].key;
 }
 
 void Recorder::draw() {
 
+    if(!_isRecording && !_isReplaying)
+        return;
+
+    ofSetColor(ofColor::red);
+    ofDrawCircle(ofGetWidth() - 200, 15, 21);
+    
+    ofSetColor(ofColor::white);
+	
+    if(_isRecording) {
+        string rec = _isRecording ? "true" : "false";
+        ofDrawBitmapString("\n\nIs Recording: " + rec, ofGetWidth() - 200, 15);
+    }
+   
+    if(_isReplaying) {
+        string rep = _isReplaying ? "true" : "false";
+	    ofDrawBitmapString("\n\nIs Replaying: " + rep, ofGetWidth() - 200, 30);
+    }
 }
 
 void Recorder::update() {
@@ -47,12 +64,14 @@ void Recorder::update() {
            return;
         }
 
-        int actionLapse = recordedkeys[nextFrame].lapse;
+        unsigned int actionLapse = recordedkeys[nextFrame].lapse;
         if(lapsePerRecordedKey >= actionLapse) {
             lapsePerRecordedKey = 0;
             nextFrame++;
         }else {
-            lapsePerRecordedKey += replaySpeed;
+            if(!_isPaused) {
+                lapsePerRecordedKey += replaySpeed;
+            }
         }
     }
 
@@ -91,6 +110,13 @@ void Recorder::stopRecording() {
 void Recorder::pause() {
     if(_isPaused)
         return;
+    _isPaused = true;
+}
+
+void Recorder::resume() {
+    if(!_isPaused)
+        return;
+    _isPaused = false;
 }
 
 void Recorder::dispose() {
@@ -103,12 +129,13 @@ void Recorder::endReplay() {
     if(!_isReplaying)
         return;
     _isReplaying = false;
+    nextFrame = 0;
+    lapsePerRecordedKey = 0;
 }
 
 void Recorder::replay() {
     if(_isRecording && !_isReplaying)
         return;
-
     _isReplaying = true;
 }
 

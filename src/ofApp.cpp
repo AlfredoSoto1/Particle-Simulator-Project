@@ -16,7 +16,8 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::resetParticles(){
-
+	if(hasResetedParticles)
+		return;
 	//these are the attraction points used in the fourth demo 
 	attractPoints.clear();
 	for(int i = 0; i < 4; i++){
@@ -29,7 +30,8 @@ void ofApp::resetParticles(){
 		p[i].setMode(currentMode);		
 		p[i].setAttractPoints(&attractPointsWithMovement);;
 		p[i].reset();
-	}	
+	}
+	hasResetedParticles = true;
 }
 
 //--------------------------------------------------------------
@@ -50,26 +52,26 @@ void ofApp::update(){
 	/*
 		replay
 	*/
-	if( recorder.getCurrentPlayBackKey() == '1' && recorder.isOnReplay()){
+	if( recorder.getCurrentPlayBackKey() == '1'){
 		currentMode = PARTICLE_MODE_ATTRACT;
 		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse";	
 	}
-	if( recorder.getCurrentPlayBackKey() == '2' && recorder.isOnReplay()){
+	if( recorder.getCurrentPlayBackKey() == '2'){
 		currentMode = PARTICLE_MODE_REPEL;
 		currentModeStr = "2 - PARTICLE_MODE_REPEL: repels from mouse"; 				
 	}
-	if( recorder.getCurrentPlayBackKey() == '3' && recorder.isOnReplay()){
+	if( recorder.getCurrentPlayBackKey() == '3'){
 		currentMode = PARTICLE_MODE_NEAREST_POINTS;
 		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS:"; 						
 	}
-	if( recorder.getCurrentPlayBackKey() == '4' && recorder.isOnReplay()){
+	if( recorder.getCurrentPlayBackKey() == '4'){
 		currentMode = PARTICLE_MODE_NOISE;
 		currentModeStr = "4 - PARTICLE_MODE_NOISE: snow particle simulation"; 						
 		resetParticles();
-	}	
-	
-	if( recorder.getCurrentPlayBackKey() == ' ' && recorder.isOnReplay()){
+	}else if( recorder.getCurrentPlayBackKey() == ' '){
 		resetParticles();
+	}else {
+		hasResetedParticles = false;
 	}
 }
 
@@ -94,6 +96,8 @@ void ofApp::draw(){
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
 
+	recorder.draw();
+
 	string str = recorder.isRecording() ? "true" : "false";
 	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
 
@@ -106,29 +110,29 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
-	if( key == '1'){
+	if( key == '1' && !recorder.isOnReplay()){
 		currentMode = PARTICLE_MODE_ATTRACT;
 		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse";	
 		recorder.record(key);	
 	}
-	if( key == '2'){
+	if( key == '2' && !recorder.isOnReplay()){
 		currentMode = PARTICLE_MODE_REPEL;
 		currentModeStr = "2 - PARTICLE_MODE_REPEL: repels from mouse"; 				
 		recorder.record(key);	
 	}
-	if( key == '3'){
+	if( key == '3' && !recorder.isOnReplay()){
 		currentMode = PARTICLE_MODE_NEAREST_POINTS;
 		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS:"; 						
 		recorder.record(key);	
 	}
-	if( key == '4'){
+	if( key == '4' && !recorder.isOnReplay()){
 		currentMode = PARTICLE_MODE_NOISE;
 		currentModeStr = "4 - PARTICLE_MODE_NOISE: snow particle simulation"; 						
 		resetParticles();
 		recorder.record(key);	
 	}	
 	
-	if( key == ' '){
+	if( key == ' ' && !recorder.isOnReplay()){
 		resetParticles();
 		recorder.record(key);	
 	}
@@ -141,7 +145,8 @@ void ofApp::keyPressed(int key){
 
 	if(key == 'p' && !recorder.isOnReplay()) {
 		recorder.replay();
-	}else if(key == 'p') {
+	}
+	if(key == 'c' && recorder.isOnReplay()) {
 		recorder.endReplay();
 	}
 }

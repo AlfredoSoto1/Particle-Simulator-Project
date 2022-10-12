@@ -31,5 +31,7 @@ class ofApp : public ofBaseApp{
 		vector <glm::vec3> attractPointsWithMovement;
 
 		Recorder recorder;
+
+		bool hasResetedParticles = false;
 		
 };

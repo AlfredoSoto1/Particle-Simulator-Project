@@ -20,6 +20,7 @@ public:
     
     void addUsableKeys(unsigned int length, int* keys);
     void record(int key);
+    void resume();
     void pause();
     void replay();
     void endReplay();
@@ -37,6 +38,7 @@ private:
     unsigned int replaySpeed;
     unsigned int lapsePerRecordedKey;
     unsigned int nextFrame;
+
     struct RecordedKey {
         int key;
         unsigned int lapse;
