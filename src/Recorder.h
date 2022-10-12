@@ -3,6 +3,11 @@
 
 #include <vector>
 
+ struct RecordedKey {
+    int key;
+    int lapse;
+};
+
 class Recorder {
 public:
     Recorder();
@@ -32,12 +37,7 @@ private:
 
     int lapsePerType;
 
-    struct RecordedKey {
-        int key;
-        int lapse;
-    };
-
-    vector<RecordedKey> recordedkeys;
+    // vector<int> recordedkeys;
 };
 
 #endif

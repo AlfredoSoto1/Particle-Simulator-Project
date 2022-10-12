@@ -14,11 +14,11 @@ bool Recorder::isRecording() {
 }
 
 int Recorder::getRecordedKey(int index) {
-    return recordedkeys[index].key;
+    return 0;//recordedkeys[index].key;
 }
 
 int Recorder::getRecordedKeysCount() {
-    return recordedkeys.size();
+    return 0;//recordedkeys.size();
 }
 
 void Recorder::draw() {
@@ -34,7 +34,7 @@ void Recorder::update() {
 void Recorder::record(int key) {
     if(!_isRecording)
         return;
-    recordedkeys.push_back({key, lapsePerType});
+    // recordedkeys.push_back({key, lapsePerType});
     lapsePerType = 0;
 }
 
