@@ -43,7 +43,9 @@ void ofApp::update(){
 	for(unsigned int i = 0; i < attractPointsWithMovement.size(); i++){
 		attractPointsWithMovement[i].x = attractPoints[i].x + ofSignedNoise(i * 10, ofGetElapsedTimef() * 0.7) * 12.0;
 		attractPointsWithMovement[i].y = attractPoints[i].y + ofSignedNoise(i * -10, ofGetElapsedTimef() * 0.7) * 12.0;
-	}	
+	}
+
+	recorder.update();
 }
 
 //--------------------------------------------------------------
@@ -66,40 +68,59 @@ void ofApp::draw(){
 
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
+
+	string str = recorder.isRecording() ? "true" : "false";
+	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
+
+	string recKeys;
+
+	for (int i = 0; i < recorder.getRecordedKeysCount(); i++) {
+		// recKeys += recorder.getRecordedKey(i);
+	}
+	 
+
+	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	if( key == '1'){
 		currentMode = PARTICLE_MODE_ATTRACT;
-		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse"; 		
+		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse";	
+		recorder.record(key);	
 	}
 	if( key == '2'){
 		currentMode = PARTICLE_MODE_REPEL;
 		currentModeStr = "2 - PARTICLE_MODE_REPEL: repels from mouse"; 				
+		recorder.record(key);	
 	}
 	if( key == '3'){
 		currentMode = PARTICLE_MODE_NEAREST_POINTS;
 		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS:"; 						
+		recorder.record(key);	
 	}
 	if( key == '4'){
 		currentMode = PARTICLE_MODE_NOISE;
 		currentModeStr = "4 - PARTICLE_MODE_NOISE: snow particle simulation"; 						
 		resetParticles();
+		recorder.record(key);	
 	}	
-		
+	
 	if( key == ' ' ){
 		resetParticles();
+		recorder.record(key);	
 	}
 
-	if(key == 'r') {
-		recorder.record();
+	if(key == 'r' && !recorder.isRecording()) {
+		recorder.startRecording();
+	}else if(key == 'r') {
+		recorder.stopRecording();
 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	
 }
 
 //--------------------------------------------------------------
