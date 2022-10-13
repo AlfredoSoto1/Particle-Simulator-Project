@@ -12,7 +12,11 @@ void ofApp::setup(){
 
 	resetParticles();
 
-	// ofFpsCounter
+	button.setColor(ofColor::lightGray);
+	button.setPosition(100, 400);
+	button.setDimensions(100, 50);
+	button.setListeners([](){}, [](){});
+	button.setText("click me", 0, 0);
 }
 
 //--------------------------------------------------------------
@@ -47,6 +51,7 @@ void ofApp::update(){
 	}
 
 	magnifier.update();
+	button.update();
 }
 
 //--------------------------------------------------------------
@@ -76,7 +81,7 @@ void ofApp::draw(){
 
 	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
 	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
-
+	button.draw();
 }
 
 //--------------------------------------------------------------

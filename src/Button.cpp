@@ -5,7 +5,16 @@ int Button::LEFT = 0;
 int Button::CENTERED = 1;
 
 Button::Button() {
-    alignment = CENTERED;
+    this->pressed = nullptr;
+    this->clicked = nullptr;
+
+    this->text = "Click me";
+    this->xpos = 0;
+    this->ypos = 0;
+    this->width = 100;
+    this->height = 50;
+    this->xRel = 0;
+    this->yRel = 0;
 }
 
 void Button::setListeners(void(*pressed)(), void(*clicked)()) {
@@ -13,18 +22,17 @@ void Button::setListeners(void(*pressed)(), void(*clicked)()) {
     this->clicked = clicked;
  }
 
- void Button::setText(const std::string& text, int alignment) {
+ void Button::setText(const std::string& text, int xRel, int yRel) {
     this->text = text;
-    this->alignment = alignment;
+    this->xRel = xRel;
+    this->yRel = yRel;
  }
 
 void Button::draw() {
 
-    if(alignment == CENTERED) {
-        ofSetColor(ofColor::white);
-        int centeredX = xpos + width / 2 - text.length() * 2;
-	    ofDrawBitmapString(text, centeredX, ypos);
-    }
+    ofSetColor(ofColor::white);
+    int centeredX = xpos + width / 2 - text.length() * 3;
+    ofDrawBitmapString(text, centeredX, ypos);
 
     if(isPressed && isHovered) {
         glm::vec3 dim = color * 0.75;
@@ -42,10 +50,12 @@ void Button::update() {
             bool inArea = isInArea(ofGetMouseX(), ofGetMouseY());
             isHovered = inArea;
             if(inArea)
-                clicked();
+                if(clicked != nullptr)
+                    clicked();
             isClicked = true;
         } else {
-            pressed();
+            if(pressed != nullptr)
+                pressed();
             isPressed = true;
         }
     }else {
