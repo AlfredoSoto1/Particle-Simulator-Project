@@ -20,10 +20,6 @@ void ofApp::setup(){
 	colorToggle->setColor(ofColor::lightGray);
 	colorToggle->setPosition(10, ofGetHeight() - 70);
 	colorToggle->setDimensions(150, 50);
-	colorToggle->setListeners([](Button& b){}, [](Button& b){
-		b.changeTextString("Current Color: " + std::string("red"));
-		//toggle color
-	});
 	colorToggle->setText("Current Color: ", ofColor::black, 5, 15);
 	buttons.push_back(colorToggle);
 
@@ -95,11 +91,11 @@ void ofApp::setup(){
 	pauseRepl->setListeners([](Button& b){}, [](Button& b){
 		//start replay
 		if(b.hasToggled())
-			b.changeTextString("playing\nreplay");
+			b.changeTextString("replay\nplaying");
 		else
-			b.changeTextString("pause\nreplay");
+			b.changeTextString("replay\npause");
 	});
-	pauseRepl->setText("pause replay", ofColor::black, 5, 15);
+	pauseRepl->setText("replay\npause", ofColor::black, 5, 15);
 	buttons.push_back(pauseRepl);
 
 	Button* selectEnabled = new Button();
@@ -115,6 +111,10 @@ void ofApp::setup(){
 	});
 	selectEnabled->setText("select\nenabled", ofColor::black, 5, 15);
 	buttons.push_back(selectEnabled);
+
+}
+
+void testFunc(Button& b) {
 
 }
 
