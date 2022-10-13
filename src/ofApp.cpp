@@ -20,6 +20,10 @@ void ofApp::setup(){
 	colorToggle->setColor(ofColor::lightGray);
 	colorToggle->setPosition(10, ofGetHeight() - 70);
 	colorToggle->setDimensions(150, 50);
+	colorToggle->setListeners([](Button& b){}, [](Button& b){
+		b.changeTextString("Current Color: " + std::string("red"));
+		//toggle color
+	});
 	colorToggle->setText("Current Color: ", ofColor::black, 5, 15);
 	buttons.push_back(colorToggle);
 
