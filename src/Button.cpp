@@ -16,7 +16,7 @@ Button::Button() {
     textColor = ofColor::white;
 }
 
-void Button::setListeners(void(*pressed)(), void(*clicked)()) {
+void Button::setListeners(void(*pressed)(Button&), void(*clicked)(Button&)) {
     this->pressed = pressed;
     this->clicked = clicked;
  }
@@ -34,6 +34,10 @@ void Button::changeTextString(const std::string& text) {
 
 void Button::toggleLock() {
     isLocked = !isLocked;
+}
+
+bool Button::hasToggled() {
+    return isToggled;
 }
 
 void Button::draw() {
@@ -61,13 +65,15 @@ void Button::update() {
         if(!isClicked) {
             bool inArea = isInArea(ofGetMouseX(), ofGetMouseY());
             isHovered = inArea;
-            if(inArea)
+            if(inArea){
+                isToggled = !isToggled;
                 if(clicked != nullptr)
-                    clicked();
+                    clicked(*this);
+            }
             isClicked = true;
         } else {
             if(pressed != nullptr)
-                pressed();
+                pressed(*this);
             isPressed = true;
         }
     }else {

@@ -15,12 +15,113 @@ void ofApp::setup(){
 	/*
 		gui - init
 	*/
-	colorToggle.setColor(ofColor::lightGray);
-	colorToggle.setPosition(10, ofGetHeight() - 70);
-	colorToggle.setDimensions(200, 50);
-	colorToggle.setListeners([](){}, [](){});
-	colorToggle.setText("Toggle Colors : ", ofColor::black, 5, 15);
+	Button* colorToggle = new Button();
 
+	colorToggle->setColor(ofColor::lightGray);
+	colorToggle->setPosition(10, ofGetHeight() - 70);
+	colorToggle->setDimensions(150, 50);
+	colorToggle->setListeners([](Button& b){}, [](Button& b){
+		b.changeTextString("Current Color: " + std::string("red"));
+		//toggle color
+	});
+	colorToggle->setText("Current Color: ", ofColor::black, 5, 15);
+	buttons.push_back(colorToggle);
+
+	Button* pauseAndPlay = new Button();
+	pauseAndPlay->setColor(ofColor::lightGray);
+	pauseAndPlay->setPosition(170, ofGetHeight() - 70);
+	pauseAndPlay->setDimensions(100, 50);
+	pauseAndPlay->setListeners([](Button& b){}, [](Button& b){
+		if(b.hasToggled())
+			b.changeTextString("in-play");
+		else
+			b.changeTextString("in-pause");
+	});
+	pauseAndPlay->setText("in-pause", ofColor::black, 5, 15);
+	buttons.push_back(pauseAndPlay);
+
+	Button* increaseVel = new Button();
+	increaseVel->setColor(ofColor::lightGray);
+	increaseVel->setPosition(280, ofGetHeight() - 70);
+	increaseVel->setDimensions(100, 50);
+	increaseVel->setListeners([](Button& b){}, [](Button& b){
+		//increment speed
+	});
+	increaseVel->setText("increment\nspeed", ofColor::black, 5, 15);
+	buttons.push_back(increaseVel);
+
+	Button* decreaseVel = new Button();
+	decreaseVel->setColor(ofColor::lightGray);
+	decreaseVel->setPosition(390, ofGetHeight() - 70);
+	decreaseVel->setDimensions(100, 50);
+	decreaseVel->setListeners([](Button& b){}, [](Button& b){
+		//decrease speed
+	});
+	decreaseVel->setText("decrease\nspeed", ofColor::black, 5, 15);
+	buttons.push_back(decreaseVel);
+
+	Button* recordKs = new Button();
+	recordKs->setColor(ofColor::lightGray);
+	recordKs->setPosition(500, ofGetHeight() - 70);
+	recordKs->setDimensions(100, 50);
+	recordKs->setListeners([](Button& b){}, [](Button& b){
+		//start recording
+		if(b.hasToggled())
+			b.changeTextString("record: on");
+		else
+			b.changeTextString("record: off");
+	});
+	recordKs->setText("record: off", ofColor::black, 5, 15);
+	buttons.push_back(recordKs);
+
+	Button* replayKs = new Button();
+	replayKs->setColor(ofColor::lightGray);
+	replayKs->setPosition(610, ofGetHeight() - 70);
+	replayKs->setDimensions(100, 50);
+	replayKs->setListeners([](Button& b){}, [](Button& b){
+		//start replay
+		if(b.hasToggled())
+			b.changeTextString("replay: on");
+		else
+			b.changeTextString("replay: off");
+	});
+	replayKs->setText("replay: off", ofColor::black, 5, 15);
+	buttons.push_back(replayKs);
+
+	Button* pauseRepl = new Button();
+	pauseRepl->setColor(ofColor::lightGray);
+	pauseRepl->setPosition(720, ofGetHeight() - 70);
+	pauseRepl->setDimensions(100, 50);
+	pauseRepl->setListeners([](Button& b){}, [](Button& b){
+		//start replay
+		if(b.hasToggled())
+			b.changeTextString("playing\nreplay");
+		else
+			b.changeTextString("pause\nreplay");
+	});
+	pauseRepl->setText("pause replay", ofColor::black, 5, 15);
+	buttons.push_back(pauseRepl);
+
+	Button* selectEnabled = new Button();
+	selectEnabled->setColor(ofColor::lightGray);
+	selectEnabled->setPosition(830, ofGetHeight() - 70);
+	selectEnabled->setDimensions(100, 50);
+	selectEnabled->setListeners([](Button& b){}, [](Button& b){
+		//toggle magnify select
+		if(b.hasToggled())
+			b.changeTextString("select\ndisabled");
+		else
+			b.changeTextString("select\nenabled");
+	});
+	selectEnabled->setText("select\nenabled", ofColor::black, 5, 15);
+	buttons.push_back(selectEnabled);
+
+}
+
+void ofApp::exit() {
+	for (unsigned int i = 0; i < buttons.size(); i++)
+		delete buttons[i];
+	buttons.clear();
 }
 
 //--------------------------------------------------------------
@@ -55,7 +156,8 @@ void ofApp::update(){
 	}
 
 	magnifier.update();
-	colorToggle.update();
+	for (unsigned int i = 0; i < buttons.size(); i++)
+		buttons[i]->update();
 }
 
 //--------------------------------------------------------------
@@ -85,7 +187,9 @@ void ofApp::draw(){
 
 	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
 	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
-	colorToggle.draw();
+
+	for (unsigned int i = 0; i < buttons.size(); i++)
+		buttons[i]->draw();
 }
 
 //--------------------------------------------------------------

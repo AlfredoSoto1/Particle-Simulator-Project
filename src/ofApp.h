@@ -12,6 +12,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+		void exit();
 		void resetParticles();
 
 		void keyPressed  (int key);
@@ -35,5 +36,5 @@ class ofApp : public ofBaseApp{
 
 		Magnifier magnifier;
 
-		Button colorToggle;
+		vector<Button*> buttons;
 };

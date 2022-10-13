@@ -12,12 +12,13 @@ public:
     void draw() override;
     void update() override;
 
-    void setListeners(void(*pressed)(), void(*clicked)());
+    void setListeners(void(*pressed)(Button&), void(*clicked)(Button&));
     
     void changeTextString(const std::string& text);
     void setText(const std::string& text, const ofColor& color, int xRel, int yRel);
 
     void toggleLock();
+    bool hasToggled();
 
 private:
 
@@ -25,6 +26,7 @@ private:
     bool isPressed = false;
     bool isHovered = false;
     bool isLocked = false;
+    bool isToggled = false;
 
     int xRel;
     int yRel;
@@ -32,8 +34,8 @@ private:
 
     ofColor textColor;
 
-    void(*pressed)();
-    void(*clicked)();
+    void(*pressed)(Button&);
+    void(*clicked)(Button&);
 };
 
 #endif
