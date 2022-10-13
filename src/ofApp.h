@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "Particle.h"
 #include "magnifier.h"
-
 class ofApp : public ofBaseApp
 {
 
@@ -29,14 +28,15 @@ public:
 	particleMode currentMode;
 	string currentModeStr;
 
-		vector <Particle> p;
-		vector <glm::vec3> attractPoints;
-		vector <glm::vec3> attractPointsWithMovement;
+	vector <Particle> p;
+	vector <glm::vec3> attractPoints;
+	vector <glm::vec3> attractPointsWithMovement;
 
-		glm::vec3 generalParticleColor = glm::vec3(1.0);
+	glm::vec3 generalParticleColor = glm::vec3(1.0);
 
-		const int maxColorStates = 3;
-		int colorState = 0; // 0 = red, 1 = green, 2 = blue
-		bool colorToggleFlag = false;
-		
+	const int maxColorStates = 3;
+	int colorState = 0; // 0 = red, 1 = green, 2 = blue
+	bool colorToggleFlag = false;
+
+	Magnifier magnifier;
 };
