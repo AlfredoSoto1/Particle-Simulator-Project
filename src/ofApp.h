@@ -25,7 +25,13 @@ public:
 	void gotMessage(ofMessage msg);
 	bool stop = false;
 
+	uint64_t lastFrame;
+	uint64_t frameDif;
+	uint64_t lastTime;
+	unsigned int frameCount;
+
 	particleMode currentMode;
+	string currentColorState; 
 	string currentModeStr;
 
 	vector <Particle> p;
@@ -39,4 +45,5 @@ public:
 	bool colorToggleFlag = false;
 
 	Magnifier magnifier;
+
 };
