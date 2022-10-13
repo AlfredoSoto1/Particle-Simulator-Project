@@ -153,6 +153,22 @@ void ofApp::keyPressed(int key)
 	{
 		stop = !stop;
 	}
+	if (key == 'd')
+	{
+		for (unsigned int i = 0; i < p.size(); i++)
+		{
+			p[i].vel.x = p[i].vel.x * 2;
+			p[i].vel.y = p[i].vel.y * 2;
+		}
+	}
+	if (key == 'a')
+	{
+		for (unsigned int i = 0; i < p.size(); i++)
+		{
+			p[i].vel.x = p[i].vel.x / 2;
+			p[i].vel.y = p[i].vel.y / 2;
+		}
+	}
 
 	//Toggles color of particles from: red -> green -> blue and returns to red after blue
 	if(key == 't')  {
