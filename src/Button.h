@@ -16,7 +16,7 @@ public:
     void update() override;
 
     void setListeners(void(*pressed)(), void(*clicked)());
-    void setText(const std::string& text, int alignment);
+    void setText(const std::string& text, int xRel, int yRel);
 
 private:
 
@@ -24,7 +24,8 @@ private:
     bool isPressed = false;
     bool isHovered = false;
 
-    int alignment;
+    int xRel;
+    int yRel;
     std::string text;
 
     void(*pressed)();
