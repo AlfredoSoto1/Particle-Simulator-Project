@@ -12,11 +12,15 @@ void ofApp::setup(){
 
 	resetParticles();
 
-	button.setColor(ofColor::lightGray);
-	button.setPosition(100, 400);
-	button.setDimensions(100, 50);
-	button.setListeners([](){}, [](){});
-	button.setText("click me", 0, 0);
+	/*
+		gui - init
+	*/
+	colorToggle.setColor(ofColor::lightGray);
+	colorToggle.setPosition(10, ofGetHeight() - 70);
+	colorToggle.setDimensions(200, 50);
+	colorToggle.setListeners([](){}, [](){});
+	colorToggle.setText("Toggle Colors : ", ofColor::black, 5, 15);
+
 }
 
 //--------------------------------------------------------------
@@ -51,7 +55,7 @@ void ofApp::update(){
 	}
 
 	magnifier.update();
-	button.update();
+	colorToggle.update();
 }
 
 //--------------------------------------------------------------
@@ -81,7 +85,7 @@ void ofApp::draw(){
 
 	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
 	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
-	button.draw();
+	colorToggle.draw();
 }
 
 //--------------------------------------------------------------
