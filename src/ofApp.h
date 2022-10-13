@@ -4,6 +4,7 @@
 #include "Particle.h"
 #include "magnifier.h"
 #include "Button.h"
+#include "Label.h"
 
 class ofApp : public ofBaseApp{
 
@@ -34,5 +35,5 @@ class ofApp : public ofBaseApp{
 
 		Magnifier magnifier;
 
-		Button button;
+		Button colorToggle;
 };

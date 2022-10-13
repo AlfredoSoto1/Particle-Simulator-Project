@@ -1,9 +1,6 @@
 #include "Button.h"
 #include <string>
 
-int Button::LEFT = 0;
-int Button::CENTERED = 1;
-
 Button::Button() {
     this->pressed = nullptr;
     this->clicked = nullptr;
@@ -15,6 +12,8 @@ Button::Button() {
     this->height = 50;
     this->xRel = 0;
     this->yRel = 0;
+
+    textColor = ofColor::white;
 }
 
 void Button::setListeners(void(*pressed)(), void(*clicked)()) {
@@ -22,29 +21,42 @@ void Button::setListeners(void(*pressed)(), void(*clicked)()) {
     this->clicked = clicked;
  }
 
- void Button::setText(const std::string& text, int xRel, int yRel) {
+ void Button::setText(const std::string& text, const ofColor& color, int xRel, int yRel) {
     this->text = text;
     this->xRel = xRel;
     this->yRel = yRel;
+    this->textColor = color;
  }
+
+void Button::changeTextString(const std::string& text) {
+    this->text = text;
+ }
+
+void Button::toggleLock() {
+    isLocked = !isLocked;
+}
 
 void Button::draw() {
 
-    ofSetColor(ofColor::white);
-    int centeredX = xpos + width / 2 - text.length() * 3;
-    ofDrawBitmapString(text, centeredX, ypos);
-
-    if(isPressed && isHovered) {
+    if(isLocked) {
+        glm::vec3 dim = color * 0.65;
+        ofSetColor(dim.r, dim.g, dim.b);
+    } else if(isPressed && isHovered) {
         glm::vec3 dim = color * 0.75;
         ofSetColor(dim.r, dim.g, dim.b);
-    }else {
+    } else {
         ofSetColor(color.r, color.g, color.b);
     }
     ofDrawRectangle(xpos, ypos, width, height);
+
+    ofSetColor(textColor);
+    ofDrawBitmapString(text, xpos + xRel, ypos + yRel);
 }
 
 void Button::update() {
 
+    if(isLocked)
+        return;
     if(ofGetMousePressed(OF_MOUSE_BUTTON_LEFT)) {
         if(!isClicked) {
             bool inArea = isInArea(ofGetMouseX(), ofGetMouseY());

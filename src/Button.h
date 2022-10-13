@@ -7,26 +7,30 @@
 class Button : public GUIcomponent {
 public:
 
-    static int LEFT;
-    static int CENTERED;
-
     Button();
 
     void draw() override;
     void update() override;
 
     void setListeners(void(*pressed)(), void(*clicked)());
-    void setText(const std::string& text, int xRel, int yRel);
+    
+    void changeTextString(const std::string& text);
+    void setText(const std::string& text, const ofColor& color, int xRel, int yRel);
+
+    void toggleLock();
 
 private:
 
     bool isClicked = false;
     bool isPressed = false;
     bool isHovered = false;
+    bool isLocked = false;
 
     int xRel;
     int yRel;
     std::string text;
+
+    ofColor textColor;
 
     void(*pressed)();
     void(*clicked)();
