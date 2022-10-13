@@ -10,11 +10,11 @@ int main( ){
 	// can be OF_WINDOW or OF_FULLSCREEN
 	// pass in width and height too:
 	ofRunApp( new ofApp());
+	ofRunApp( new ofApp());
 
 }
 
 /*
-
 	Particles color - change by pressing "t"
 	Pause simulation - pressing "p"
 	Increase velocity - pressing "d"
@@ -24,5 +24,4 @@ int main( ){
 		-left click draws area
 		-right click removes area
 		-any particle entering will be tripled its size
-
 */
