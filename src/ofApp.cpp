@@ -12,6 +12,7 @@ void ofApp::setup(){
 
 	resetParticles();
 
+	// ofFpsCounter
 }
 
 //--------------------------------------------------------------
@@ -43,7 +44,9 @@ void ofApp::update(){
 	for(unsigned int i = 0; i < attractPointsWithMovement.size(); i++){
 		attractPointsWithMovement[i].x = attractPoints[i].x + ofSignedNoise(i * 10, ofGetElapsedTimef() * 0.7) * 12.0;
 		attractPointsWithMovement[i].y = attractPoints[i].y + ofSignedNoise(i * -10, ofGetElapsedTimef() * 0.7) * 12.0;
-	}	
+	}
+
+	magnifier.update();
 }
 
 //--------------------------------------------------------------
@@ -51,6 +54,7 @@ void ofApp::draw(){
     ofBackgroundGradient(ofColor(60,60,60), ofColor(10,10,10));
 
 	for(unsigned int i = 0; i < p.size(); i++){
+		magnifier.magnifyParticle(&p[i]);
 		p[i].draw();
 	}
 	
@@ -64,8 +68,15 @@ void ofApp::draw(){
 		}
 	}
 
+	magnifier.draw();
+
 	ofSetColor(230);	
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
+
+
+	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
+	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
+
 }
 
 //--------------------------------------------------------------
@@ -100,27 +111,26 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+	magnifier.loadDraggedPosition(x, y);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	
+	magnifier.loadInitialPosition(x, y, button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+	magnifier.reset(button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+	
 }
 
 //--------------------------------------------------------------

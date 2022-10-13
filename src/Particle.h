@@ -28,6 +28,7 @@ class Particle{
 		float drag; 
 		float uniqueVal;
 		float scale;
+		float magnifyingfactor;
 		
 		particleMode mode;
 		

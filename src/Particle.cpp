@@ -3,6 +3,7 @@
 //------------------------------------------------------------------
 Particle::Particle(){
 	attractPoints = NULL;
+	magnifyingfactor = 1.0;
 }
 
 //------------------------------------------------------------------
@@ -178,6 +179,6 @@ void Particle::draw(){
 		ofSetColor(103, 160, 237);
 	}
 			
-	ofDrawCircle(pos.x, pos.y, scale * 4.0);
+	ofDrawCircle(pos.x, pos.y, scale * magnifyingfactor * 4.0);
 }
 
