@@ -232,6 +232,19 @@ void ofApp::keyPressed(int key)
 	}else {
 		this->colorToggleFlag = false;
 	}
+
+	if(key == 'r' && !recorder.isRecording()) {
+		recorder.startRecording();
+	}else if(key == 'r') {
+		recorder.stopRecording();
+	}
+
+	if(key == 'p' && !recorder.isOnReplay()) {
+		recorder.replay();
+	}
+	if(key == 'c' && recorder.isOnReplay()) {
+		recorder.endReplay();
+	}
 }
 
 //--------------------------------------------------------------
