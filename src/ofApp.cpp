@@ -22,8 +22,6 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::resetParticles()
 {
-	if (hasResetedParticles)
-		return;
 	// these are the attraction points used in the fourth demo
 	attractPoints.clear();
 	for (int i = 0; i < 4; i++)
@@ -40,7 +38,6 @@ void ofApp::resetParticles()
 		;
 		p[i].reset();
 	}
-	hasResetedParticles = true;
 }
 
 //--------------------------------------------------------------
@@ -68,10 +65,8 @@ void ofApp::update()
 			break;
 		}
 		p[i].setMode(currentMode);
-		if (stop == false)
-		{
+		if (!stop)
 			p[i].update();
-		}
 	}
 
 	// lets add a bit of movement to the attract points
@@ -89,16 +84,19 @@ void ofApp::update()
 	{
 		currentMode = PARTICLE_MODE_ATTRACT;
 		currentModeStr = "1 - PARTICLE_MODE_ATTRACT: attracts to mouse";
+		recorder.freeCurrentPlayBackKey();
 	}
 	if (recorder.getCurrentPlayBackKey() == '2')
 	{
 		currentMode = PARTICLE_MODE_REPEL;
 		currentModeStr = "2 - PARTICLE_MODE_REPEL: repels from mouse";
+		recorder.freeCurrentPlayBackKey();
 	}
 	if (recorder.getCurrentPlayBackKey() == '3')
 	{
 		currentMode = PARTICLE_MODE_NEAREST_POINTS;
 		currentModeStr = "3 - PARTICLE_MODE_NEAREST_POINTS:";
+		recorder.freeCurrentPlayBackKey();
 	}
 
 	if (recorder.getCurrentPlayBackKey() == '4')
@@ -106,18 +104,17 @@ void ofApp::update()
 		currentMode = PARTICLE_MODE_NOISE;
 		currentModeStr = "4 - PARTICLE_MODE_NOISE: snow particle simulation";
 		resetParticles();
+		recorder.freeCurrentPlayBackKey();
 	}
-	else if (recorder.getCurrentPlayBackKey() == ' ')
+	if (recorder.getCurrentPlayBackKey() == ' ')
 	{
 		resetParticles();
-	}
-	else
-	{
-		hasResetedParticles = false;
+		recorder.freeCurrentPlayBackKey();
 	}
 	if (recorder.getCurrentPlayBackKey() == 's')
 	{
 		stop = !stop;
+		recorder.freeCurrentPlayBackKey();
 	}
 	if (recorder.getCurrentPlayBackKey() == 'd')
 	{
@@ -126,6 +123,7 @@ void ofApp::update()
 			p[i].vel.x = p[i].vel.x * 2;
 			p[i].vel.y = p[i].vel.y * 2;
 		}
+		recorder.freeCurrentPlayBackKey();
 	}
 	if (recorder.getCurrentPlayBackKey() == 'a')
 	{
@@ -134,16 +132,13 @@ void ofApp::update()
 			p[i].vel.x = p[i].vel.x / 2;
 			p[i].vel.y = p[i].vel.y / 2;
 		}
+		recorder.freeCurrentPlayBackKey();
 	}
-	if (recorder.getCurrentPlayBackKey() == 't')
-	{
-		// if (!this->colorToggleFlag)
-		// {
+	if (recorder.getCurrentPlayBackKey() == 't') {
 		this->colorState = (this->colorState + 1) % this->maxColorStates;
 		this->colorToggleFlag = true;
 
-		switch (this->colorState)
-		{
+		switch (this->colorState) {
 		case 0:
 			currentColorState = "Color state Red";
 			break;
@@ -154,12 +149,8 @@ void ofApp::update()
 			currentColorState = "Color state Blue";
 			break;
 		}
-		// }
+		recorder.freeCurrentPlayBackKey();
 	}
-	// else
-	// {
-	// 	this->colorToggleFlag = false;
-	// }
 
 	recorder.update();
 }
@@ -250,7 +241,7 @@ void ofApp::keyPressed(int key)
 	}
 
 	// Pauses the particles
-	if (key == 's' && !recorder.isRecording())
+	if (key == 's' && !recorder.isOnReplay())
 	{
 		stop = !stop;
 		recorder.record(key);
@@ -281,8 +272,6 @@ void ofApp::keyPressed(int key)
 	// Toggles color of particles from: red -> green -> blue and returns to red after blue
 	if (key == 't' && !recorder.isOnReplay())
 	{
-		// if (!this->colorToggleFlag)
-		//{
 		this->colorState = (this->colorState + 1) % this->maxColorStates;
 		this->colorToggleFlag = true;
 
@@ -298,13 +287,8 @@ void ofApp::keyPressed(int key)
 			currentColorState = "Color state Blue";
 			break;
 		}
-		//}
 		recorder.record(key);
 	}
-	// else
-	// {
-	// 	this->colorToggleFlag = false;
-	// }
 
 	// Records the key presses
 	if (key == 'r' && !recorder.isRecording())

@@ -7,6 +7,7 @@ Recorder::Recorder()
     replaySpeed = 1;
     lapsePerRecordedKey = 0;
     nextFrame = 0;
+
 }
 
 Recorder::~Recorder()
@@ -38,7 +39,13 @@ int Recorder::getCurrentPlayBackKey()
 {
     if (recordedkeys.size() == 0 || !_isReplaying)
         return -1;
-    return recordedkeys[nextFrame].getKey();
+    if(_playBackKeyShown)
+        return -1;
+    return recordedkeys[nextFrame].key;
+}
+
+void Recorder::freeCurrentPlayBackKey() {
+    _playBackKeyShown = true;
 }
 
 void Recorder::draw()
@@ -82,6 +89,7 @@ void Recorder::update()
         {
             lapsePerRecordedKey = 0;
             nextFrame++;
+            _playBackKeyShown = false;
         }
         else
         {

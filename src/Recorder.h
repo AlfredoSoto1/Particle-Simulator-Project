@@ -30,33 +30,23 @@ public:
     void draw();
     void update();
 
+    void freeCurrentPlayBackKey();
+
 private:
     bool _isPaused = false;
     bool _isRecording = false;
     bool _isReplaying = false;
-    bool _showKeyOnce = true;
+    bool _playBackKeyShown = false;
 
     unsigned int lapsePerType;
     unsigned int replaySpeed;
     unsigned int lapsePerRecordedKey;
     unsigned int nextFrame;
 
-    struct RecordedKey
-    {
+
+    struct RecordedKey {
         int key;
         unsigned int lapse;
-
-        bool toggle = true;
-
-        int getKey()
-        {
-            if (toggle)
-            {
-                toggle = false;
-                return key;
-            }
-            return -1;
-        }
     };
 
     std::vector<RecordedKey> recordedkeys;

@@ -48,6 +48,4 @@ public:
 	Magnifier magnifier;
 	Recorder recorder;
 
-	bool hasResetedParticles = false;
-		
 };
