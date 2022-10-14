@@ -3,6 +3,10 @@
 
 #include <vector>
 
+struct RecordedKey {
+    int key;
+    unsigned int lapse;
+};
 class Recorder {
 public:
     Recorder();
@@ -26,25 +30,28 @@ public:
     void endReplay();
     void dispose();
 
+    void togglePlayingPlayList();
+    void playNext();
+    void playPrev();
+    void save();
+
     void draw();
     void update();
+
 private:
 
     bool _isPaused = false;
     bool _isRecording = false;
     bool _isReplaying = false;
+    bool _isReplayingPlayList = false;
 
     unsigned int lapsePerType;
     unsigned int replaySpeed;
     unsigned int lapsePerRecordedKey;
     unsigned int nextFrame;
 
-    struct RecordedKey {
-        int key;
-        unsigned int lapse;
-    };
-
-    std::vector<RecordedKey> recordedkeys;
+    std::vector<RecordedKey>* recordedkeys;
+    std::vector<std::vector<RecordedKey>*> playList;
 };
 
 #endif

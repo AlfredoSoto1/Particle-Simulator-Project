@@ -6,6 +6,8 @@ Recorder::Recorder() {
     replaySpeed = 1;
     lapsePerRecordedKey = 0;
     nextFrame = 0;
+
+    recordedkeys = new std::vector<RecordedKey>();
 }
 
 Recorder::~Recorder() {
@@ -21,17 +23,38 @@ bool Recorder::isOnReplay() {
 }
 
 int Recorder::getRecordedKey(int index) {
-    return recordedkeys[index].key;
+    return (*recordedkeys)[index].key;
 }
 
 int Recorder::getRecordedKeysCount() {
-    return recordedkeys.size();
+    return (*recordedkeys).size();
 }
 
 int Recorder::getCurrentPlayBackKey() {
-    if(recordedkeys.size() == 0 || !_isReplaying)
+    if((*recordedkeys).size() == 0 || !_isReplaying)
         return -1;
-    return recordedkeys[nextFrame].key;
+    return (*recordedkeys)[nextFrame].key;
+}
+
+void Recorder::togglePlayingPlayList() {
+    _isReplayingPlayList = !_isReplayingPlayList;
+}
+
+void Recorder::playNext() {
+    if(!_isReplayingPlayList)
+        return;
+
+}
+
+void Recorder::playPrev() {
+    if(!_isReplayingPlayList)
+        return;
+
+}
+
+void Recorder::save() {
+    playList.push_back(recordedkeys);
+    recordedkeys = new std::vector<RecordedKey>();
 }
 
 void Recorder::draw() {
@@ -58,13 +81,12 @@ void Recorder::draw() {
 void Recorder::update() {
 
     if(_isReplaying) {
-
-        if(nextFrame >= recordedkeys.size()) {
-           endReplay();
-           return;
+        if(nextFrame >= (*recordedkeys).size()) {
+            endReplay();
+            return;
         }
 
-        unsigned int actionLapse = recordedkeys[nextFrame].lapse;
+        unsigned int actionLapse = (*recordedkeys)[nextFrame].lapse;
         if(lapsePerRecordedKey >= actionLapse) {
             lapsePerRecordedKey = 0;
             nextFrame++;
@@ -85,7 +107,7 @@ void Recorder::record(int key) {
         return;
     if(_isReplaying)
         return;
-    recordedkeys.push_back({key, lapsePerType});
+    (*recordedkeys).push_back({key, lapsePerType});
     lapsePerType = 0;
 }
 
@@ -122,7 +144,13 @@ void Recorder::resume() {
 void Recorder::dispose() {
      if(_isRecording)
         return;
-    recordedkeys.clear();
+    if(recordedkeys != nullptr)
+        (*recordedkeys).clear();
+    for (int i = 0; i < playList.size(); i++) {
+        playList[i]->clear();
+        delete playList[i];
+    }
+    playList.clear();
 }
 
 void Recorder::endReplay() {

@@ -245,6 +245,16 @@ void ofApp::keyPressed(int key)
 	if(key == 'c' && recorder.isOnReplay()) {
 		recorder.endReplay();
 	}
+
+	if(key == 'k' && !recorder.isRecording()) {
+		recorder.playNext();
+	}
+	if(key == 'j' && !recorder.isRecording()) {
+		recorder.playPrev();
+	}
+	if(key == 'h' && !recorder.isRecording()) {
+		recorder.save();
+	}
 }
 
 //--------------------------------------------------------------
