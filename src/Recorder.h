@@ -3,22 +3,23 @@
 
 #include <vector>
 
-class Recorder {
+class Recorder
+{
 public:
     Recorder();
     ~Recorder();
 
     bool isRecording();
     bool isOnReplay();
-    
+
     int getRecordedKey(int index);
     int getRecordedKeysCount();
     int getCurrentPlayBackKey();
 
     void startRecording();
     void stopRecording();
-    
-    void addUsableKeys(unsigned int length, int* keys);
+
+    void addUsableKeys(unsigned int length, int *keys);
     void record(int key);
     void resume();
     void pause();
@@ -28,20 +29,34 @@ public:
 
     void draw();
     void update();
-private:
 
+private:
     bool _isPaused = false;
     bool _isRecording = false;
     bool _isReplaying = false;
+    bool _showKeyOnce = true;
 
     unsigned int lapsePerType;
     unsigned int replaySpeed;
     unsigned int lapsePerRecordedKey;
     unsigned int nextFrame;
 
-    struct RecordedKey {
+    struct RecordedKey
+    {
         int key;
         unsigned int lapse;
+
+        bool toggle = true;
+
+        int getKey()
+        {
+            if (toggle)
+            {
+                toggle = false;
+                return key;
+            }
+            return -1;
+        }
     };
 
     std::vector<RecordedKey> recordedkeys;
