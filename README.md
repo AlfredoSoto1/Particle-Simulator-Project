@@ -21,8 +21,32 @@ Any project that doesn't compile will receive a 0.
 If a partner has no commits in the repositories, he will receive a 0.
 
 ## Student Notes
-<h3>Basic Usage</h3>
-<p> + By pressing the key "t" you can toggle between three colors (red, green, blue) for all particles</p>
+If you have any notes to add for your TA about the project specs or creative additions, you may do so in this section of the README
 
-<h3>NEW Features</h3>
-<p> + Toggle between three basic colors for all particles using key "t"</p>
+<h3>How to use</h3>
+<b>phase 1 explanation</b>
+<p>+ Pressing <code>"t"</code> toggles between colors <code>[red, green, blue]</code> in that secuence.</p>
+<p>+ Pressing <code>"s"</code> freezes the particles(pause the simulation).</p>
+<p>+ Pressing <code>"d"</code> increases velocity by x2 and Pressing <code>"a"</code> decreases velocity by x1/2.</p>
+
+<b>phase 2 explanation</b>
+<p>+ By left clicking in the screen and dragging the mouse, you can select a portion of the screen in which any particle that enters it will be magnified by x3.</p>
+<p>+ You can undo this selection by right clicking inside the rectangle.</p>
+
+<b>phase 3 explanation</b>
+<p>+ You can record the keys that were pressed by pressing <code>"r"</code>. An indicator will appear letting you know that you are recording the keys.</p>
+<p>+ You can stop the recording by pressing again <code>"r"</code>. The indicator will disapear when you stop recording.</p>
+<p>+ Pressing <code>"p"</code> will replay the leatest record you did.</p>
+<p>+ Pressing <code>"c"</code> will cancel the replay.</p>
+<p>+ An indicator will also appear for when you are replaying.</p>
+
+<b>bonus explanation</b>
+<p>+ All key actions have a corresponding button in the screen with an indicator of the current state of the button and its action.</p>
+<p>+ You can enable the <code>"drag magnifier"</code> by clicking the button <code>"select: enable"</code>. This will disable the select mode of the magnifier. If you left click inside the area of the rectangle, you can drag it anywhere inside the screen.</p>
+<p>+ You can replay saved replays by clicking <code>"playlist: 1"</code>. You would have to press <code>"save record"</code> in order to use this button after you record they keys from phase 3. Every time you press <code>"playList: 1"</code>, it will move to the next replay cycling again when you reach end of playlist.</p>
+
+
+
+by:
+Alfredo D. Soto Velez
+glorian :)
