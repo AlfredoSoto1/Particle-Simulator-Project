@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Recorder.h"
 #include "Particle.h"
 #include "magnifier.h"
 class ofApp : public ofBaseApp
@@ -45,5 +46,8 @@ public:
 	bool colorToggleFlag = false;
 
 	Magnifier magnifier;
+	Recorder recorder;
 
+	bool hasResetedParticles = false;
+		
 };
