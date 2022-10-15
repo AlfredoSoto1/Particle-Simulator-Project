@@ -26,13 +26,13 @@ If you have any notes to add for your TA about the project specs or creative add
 
 <h3>How to use</h3>
 <b>Phase 1 Explanation</b>
-<p>+ Pressing <code>"t"</code> toggles between colors <code>[red, green, blue]</code> in that secuence.</p>
-<p>+ Pressing <code>"s"</code> freezes the particles(pause the simulation).</p>
-<p>+ Pressing <code>"d"</code> increases velocity by x2 and Pressing <code>"a"</code> decreases velocity by x1/2.</p>
+<p>+ Pressing <code>"t"</code> toggles between colors <code>[red, green, blue]</code> in that secuence. (Partnet A) </p>
+<p>+ Pressing <code>"s"</code> freezes the particles(pause the simulation).(Partner B) </p>
+<p>+ Pressing <code>"d"</code> increases velocity by x2 and Pressing <code>"a"</code> decreases velocity by x1/2.(Partner B) </p>
 
 <b>Phase 2 Explanation</b>
-<p>+ By left clicking in the screen and dragging the mouse, you can select a portion of the screen in which any particle that enters it will be magnified by x3.</p>
-<p>+ You can undo this selection by right clicking inside the rectangle.</p>
+<p>+ By left clicking in the screen and dragging the mouse, you can select a portion of the screen in which any particle that enters it will be magnified by x3. (Partner A) </p>
+<p>+ You can undo this selection by right clicking inside the rectangle.(Partner A)</p>
 
 <b>Phase 3 Explanation</b>
 <p>+ You can record the keys that were pressed by pressing <code>"r"</code>. An indicator will appear letting you know that you are recording the keys.</p>
@@ -47,6 +47,6 @@ If you have any notes to add for your TA about the project specs or creative add
 
 
 by:
-Partner A: Alfredo D. Soto Vélez Institutional Email: alfredo.soto2@upr.edu
-Partner B: Glorián M. Serrano Ortiz Institutional Email: glorian.serrano1@upr.edu
+<p>Partner A: Alfredo D. Soto Vélez Institutional Email: alfredo.soto2@upr.edu </p>
+<p>Partner B: Glorián M. Serrano Ortiz Institutional Email: glorian.serrano1@upr.edu </p>
 
