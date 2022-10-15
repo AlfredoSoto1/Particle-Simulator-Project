@@ -5,6 +5,7 @@ Particle::Particle()
 {
 	attractPoints = NULL;
 	magnifyingfactor = 1.0;
+	color = ofColor::red;
 	velocityFactor = 1.0;
 }
 
@@ -209,8 +210,6 @@ void Particle::draw()
 		ofSetColor(103, 160, 237);
 	}
 
-	// update color
-	ofSetColor((int)(particleColor.r * 255), (int)(particleColor.g * 255), (int)(particleColor.b * 255));
-
+	ofSetColor(color);
 	ofDrawCircle(pos.x, pos.y, scale * magnifyingfactor * 4.0);
 }

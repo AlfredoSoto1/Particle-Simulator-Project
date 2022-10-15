@@ -1,8 +1,6 @@
 #include <Recorder.h>
-#include "ofApp.h"
 
-Recorder::Recorder()
-{
+Recorder::Recorder() {
     lapsePerType = 0;
     replaySpeed = 1;
     lapsePerRecordedKey = 0;
@@ -10,33 +8,31 @@ Recorder::Recorder()
 
 }
 
-Recorder::~Recorder()
-{
+Recorder::~Recorder() {
     dispose();
 }
 
-bool Recorder::isRecording()
-{
+bool Recorder::isRecording() {
     return _isRecording;
 }
 
-bool Recorder::isOnReplay()
-{
+bool Recorder::isOnReplay() {
     return _isReplaying;
 }
 
-int Recorder::getRecordedKey(int index)
-{
-    return recordedkeys[index].key;
-}
-
-int Recorder::getRecordedKeysCount()
-{
+int Recorder::getRecordedKeysCount() {
     return recordedkeys.size();
 }
 
-int Recorder::getCurrentPlayBackKey()
-{
+ofColor Recorder::getCurrentPlayBackColor() {
+    if (recordedkeys.size() == 0 || !_isReplaying)
+        return ofColor::black;
+    if(_playBackKeyShown)
+        return ofColor::black;
+    return recordedkeys[nextFrame].color;
+}
+
+int Recorder::getCurrentPlayBackKey() {
     if (recordedkeys.size() == 0 || !_isReplaying)
         return -1;
     if(_playBackKeyShown)
@@ -48,55 +44,43 @@ void Recorder::freeCurrentPlayBackKey() {
     _playBackKeyShown = true;
 }
 
-void Recorder::draw()
-{
+void Recorder::draw() {
 
     if (!_isRecording && !_isReplaying)
         return;
 
-    ofSetColor(ofColor::red);
-    ofDrawCircle(ofGetWidth() - 200, 15, 21);
-
-    ofSetColor(ofColor::white);
-
-    if (_isRecording)
-    {
+    if (_isRecording) {
+        ofSetColor(ofColor::red);
+        ofDrawCircle(ofGetWidth() - 15, 15, 15);
         string rec = _isRecording ? "true" : "false";
-        ofDrawBitmapString("\n\nIs Recording: " + rec, ofGetWidth() - 200, 15);
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("Is Recording:\n" + rec, ofGetWidth() - 150, 30);
     }
-
-    if (_isReplaying)
-    {
+    if (_isReplaying) {
+        ofSetColor(ofColor::green);
+        ofDrawCircle(ofGetWidth() - 15, 15, 15);
         string rep = _isReplaying ? "true" : "false";
-        ofDrawBitmapString("\n\nIs Replaying: " + rep, ofGetWidth() - 200, 30);
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("Is Replaying:\n" + rep, ofGetWidth() - 150, 30);
     }
 }
 
-void Recorder::update()
-{
+void Recorder::update() {
 
-    if (_isReplaying)
-    {
-
-        if (nextFrame >= recordedkeys.size())
-        {
+    if (_isReplaying) {
+        if (nextFrame >= recordedkeys.size()) {
             endReplay();
             return;
         }
 
         unsigned int actionLapse = recordedkeys[nextFrame].lapse;
-        if (lapsePerRecordedKey >= actionLapse)
-        {
+        if (lapsePerRecordedKey >= actionLapse) {
             lapsePerRecordedKey = 0;
             nextFrame++;
             _playBackKeyShown = false;
-        }
-        else
-        {
+        } else {
             if (!_isPaused)
-            {
                 lapsePerRecordedKey += replaySpeed;
-            }
         }
     }
 
@@ -105,18 +89,16 @@ void Recorder::update()
     lapsePerType++;
 }
 
-void Recorder::record(int key)
-{
+void Recorder::record(int key, ofColor color) {
     if (!_isRecording)
         return;
     if (_isReplaying)
         return;
-    recordedkeys.push_back({key, lapsePerType});
+    recordedkeys.push_back({key, color, lapsePerType});
     lapsePerType = 0;
 }
 
-void Recorder::startRecording()
-{
+void Recorder::startRecording() {
     if (_isReplaying)
         return;
     if (_isRecording)
@@ -125,8 +107,7 @@ void Recorder::startRecording()
     lapsePerType = 0;
 }
 
-void Recorder::stopRecording()
-{
+void Recorder::stopRecording() {
     if (_isReplaying)
         return;
     if (!_isRecording)
@@ -135,29 +116,25 @@ void Recorder::stopRecording()
     lapsePerType = 0;
 }
 
-void Recorder::pause()
-{
+void Recorder::pause() {
     if (_isPaused)
         return;
     _isPaused = true;
 }
 
-void Recorder::resume()
-{
+void Recorder::resume() {
     if (!_isPaused)
         return;
     _isPaused = false;
 }
 
-void Recorder::dispose()
-{
+void Recorder::dispose() {
     if (_isRecording)
         return;
     recordedkeys.clear();
 }
 
-void Recorder::endReplay()
-{
+void Recorder::endReplay() {
     if (!_isReplaying)
         return;
     _isReplaying = false;
@@ -165,8 +142,7 @@ void Recorder::endReplay()
     lapsePerRecordedKey = 0;
 }
 
-void Recorder::replay()
-{
+void Recorder::replay() {
     if (_isRecording && !_isReplaying)
         return;
     _isReplaying = true;
