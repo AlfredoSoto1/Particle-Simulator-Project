@@ -11,7 +11,7 @@ Magnifier::Magnifier()
     boundingBoxThickness = 5.0f;
 
     // initial box color
-    boundingBoxColor.set(255, 0, 0);
+    boundingBoxColor.set(255, 255, 255);
 }
 
 Magnifier::~Magnifier()
