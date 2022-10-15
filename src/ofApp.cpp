@@ -3,8 +3,7 @@
 #include <iostream>
 
 //--------------------------------------------------------------
-void ofApp::setup()
-{
+void ofApp::setup() {
 	ofSetVerticalSync(true);
 
 	int num = 1500;
@@ -27,19 +26,16 @@ void ofApp::exit() {
 }
 
 //--------------------------------------------------------------
-void ofApp::resetParticles()
-{
+void ofApp::resetParticles() {
 	// these are the attraction points used in the fourth demo
 	attractPoints.clear();
-	for (int i = 0; i < 4; i++)
-	{
+	for (int i = 0; i < 4; i++) {
 		attractPoints.push_back(glm::vec3(ofMap(i, 0, 4, 100, ofGetWidth() - 100), ofRandom(100, ofGetHeight() - 100), 0));
 	}
 
 	attractPointsWithMovement = attractPoints;
 
-	for (unsigned int i = 0; i < p.size(); i++)
-	{
+	for (unsigned int i = 0; i < p.size(); i++) {
 		p[i].setMode(currentMode);
 		p[i].setAttractPoints(&attractPointsWithMovement);
 		p[i].reset();
@@ -128,8 +124,7 @@ void ofApp::update() {
 }
 
 //--------------------------------------------------------------
-void ofApp::draw()
-{
+void ofApp::draw() {
 	ofBackgroundGradient(ofColor(60, 60, 60), ofColor(10, 10, 10));
 
 	for (unsigned int i = 0; i < p.size(); i++) {
@@ -148,22 +143,13 @@ void ofApp::draw()
 	}
 
 	magnifier.draw();
+	recorder.draw();
 
 	ofSetColor(230);
 	ofDrawBitmapString(currentModeStr + "\n\nSpacebar to reset. \nKeys 1-4 to change mode.", 10, 20);
 
-	recorder.draw();
-
-	string str = recorder.isRecording() ? "true" : "false";
-	ofDrawBitmapString("\n\nIs Recording: " + str, 10, 60);
-
-	string str1 = recorder.isOnReplay() ? "true" : "false";
-	ofDrawBitmapString("\n\nIs Replaying: " + str1, 10, 100);
-
-	ofDrawBitmapString("\n\nIs Recorded keys: " + std::to_string(recorder.getRecordedKeysCount()), 10, 130);
-
-	ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
-	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
+	// ofDrawBitmapString("Mag position " + std::to_string(magnifier.getPosition().x) + ", " + std::to_string(magnifier.getPosition().y), 10, 100);
+	// ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
 	ofDrawBitmapString(currentColorState, 10, 200);
 
 	string framePrint =  "Time to render: " + std::to_string(frameDif) + "ms";
@@ -250,7 +236,7 @@ void ofApp::keyPressed(int key) {
 	}
 
 	// Records the key presses
-	if (key == 'r' && !recorder.isRecording()) {
+	if (key == 'r' && !recorder.isRecording() && !recorder.isOnReplay()) {
 		recorder.startRecording();
 	}
 	else if (key == 'r') {
@@ -263,7 +249,11 @@ void ofApp::keyPressed(int key) {
 	}
 	if (key == 'c' && recorder.isOnReplay()) {
 		recorder.endReplay();
-		replayVelocityFactor = 1.0;
+		replayVelocityFactor = increaseVelocityFactor;
+	}
+
+	if(key == 'l') {
+		magnifier.toggleOnSelect();
 	}
 }
 
