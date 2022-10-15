@@ -43,7 +43,7 @@ If you have any notes to add for your TA about the project specs or creative add
 <details> <summary>Details about implementation in this phase</summary>
 <ol>
 <li>This was designed using a class, implemented by <i>(Partner A).</i></li>
-<li><i>(Partner B) Implemented the built functions from this class to the main proyect to record the keys.</i></li>
+<li><i>(Partner B)</i> Implemented the built functions from this class to the main proyect to record the keys.</li>
 </ol>
 </details>
 
