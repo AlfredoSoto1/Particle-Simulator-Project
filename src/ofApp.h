@@ -11,6 +11,7 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void exit();
 	void resetParticles();
 
 	void keyPressed(int key);
@@ -35,17 +36,19 @@ public:
 	string currentColorState; 
 	string currentModeStr;
 
+	ofColor* colorCycles;
+	int colorState = 0; // 0 = red, 1 = green, 2 = blue
+	int lastColorState = 0;
+	const int maxColorStates = 3;
+
 	vector <Particle> p;
 	vector <glm::vec3> attractPoints;
 	vector <glm::vec3> attractPointsWithMovement;
 
 	glm::vec3 generalParticleColor = glm::vec3(1.0);
 
-	const int maxColorStates = 3;
-	int colorState = 0; // 0 = red, 1 = green, 2 = blue
-	bool colorToggleFlag = false;
-
 	Magnifier magnifier;
 	Recorder recorder;
+	ofColor replayColor;
 
 };

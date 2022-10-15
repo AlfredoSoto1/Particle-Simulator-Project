@@ -2,6 +2,7 @@
 #define RECORDER_HEADER
 
 #include <vector>
+#include "ofMain.h"
 
 class Recorder
 {
@@ -12,15 +13,16 @@ public:
     bool isRecording();
     bool isOnReplay();
 
-    int getRecordedKey(int index);
     int getRecordedKeysCount();
     int getCurrentPlayBackKey();
+    void freeCurrentPlayBackKey();
+    ofColor getCurrentPlayBackColor();
 
     void startRecording();
     void stopRecording();
 
     void addUsableKeys(unsigned int length, int *keys);
-    void record(int key);
+    void record(int key, ofColor color);
     void resume();
     void pause();
     void replay();
@@ -30,7 +32,6 @@ public:
     void draw();
     void update();
 
-    void freeCurrentPlayBackKey();
 
 private:
     bool _isPaused = false;
@@ -43,9 +44,9 @@ private:
     unsigned int lapsePerRecordedKey;
     unsigned int nextFrame;
 
-
     struct RecordedKey {
         int key;
+        ofColor color;
         unsigned int lapse;
     };
 
