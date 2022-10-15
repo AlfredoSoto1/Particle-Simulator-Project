@@ -26,7 +26,7 @@ If you have any notes to add for your TA about the project specs or creative add
 
 <h3>How to use</h3>
 
-<p><b>USE MASTER BRANCH</b></p>
+<p><b><i>USE MASTER BRANCH</b></i></p>
 
 <b>Phase 1 Explanation</b>
 <p>+ Pressing <code>"t"</code> toggles between colors <code>[red, green, blue]</code> in that secuence. <i>(Partner A)</i> </p>
