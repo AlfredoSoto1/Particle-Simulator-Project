@@ -25,6 +25,9 @@ If a partner has no commits in the repositories, he will receive a 0.
 If you have any notes to add for your TA about the project specs or creative additions, you may do so in this section of the README
 
 <h3>How to use</h3>
+
+<p><b>USE MASTER BRANCH</b></p>
+
 <b>Phase 1 Explanation</b>
 <p>+ Pressing <code>"t"</code> toggles between colors <code>[red, green, blue]</code> in that secuence. <i>(Partner A)</i> </p>
 <p>+ Pressing <code>"s"</code> freezes the particles(pause the simulation). <i>(Partner B)</i> </p>
