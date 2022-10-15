@@ -24,7 +24,9 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-	bool stop = false;
+
+	bool stop = false; //Determine when the particles are paused
+	float increaseVelocityFactor = 1; //Variable used to duplicate or decrease particle velocity 
 
 	uint64_t lastFrame;
 	uint64_t frameDif;
@@ -32,12 +34,12 @@ public:
 	unsigned int frameCount;
 
 	particleMode currentMode;
-	string currentColorState; 
+	string currentColorState;
 	string currentModeStr;
 
-	vector <Particle> p;
-	vector <glm::vec3> attractPoints;
-	vector <glm::vec3> attractPointsWithMovement;
+	vector<Particle> p;
+	vector<glm::vec3> attractPoints;
+	vector<glm::vec3> attractPointsWithMovement;
 
 	glm::vec3 generalParticleColor = glm::vec3(1.0);
 

@@ -65,8 +65,10 @@ void ofApp::update()
 			break;
 		}
 		p[i].setMode(currentMode);
-		if (!stop)
+		if (!stop) {
+			p[i].velocityFactor = increaseVelocityFactor;
 			p[i].update();
+		}
 	}
 
 	// lets add a bit of movement to the attract points
@@ -197,7 +199,7 @@ void ofApp::draw()
 	ofDrawBitmapString("Mag sacale " + std::to_string(magnifier.getScale().x) + ", " + std::to_string(magnifier.getScale().y), 10, 120);
 	ofDrawBitmapString(currentColorState, 10, 200);
 
-	string framePrint = "Time to render: " + std::to_string(frameDif) + "ms";
+	string framePrint =  "Time to render: " + std::to_string(frameDif) + "ms";
 	ofDrawBitmapString(framePrint, 10, 150);
 
 	frameDif = ofGetSystemTimeMillis() - lastFrame;
@@ -241,6 +243,8 @@ void ofApp::keyPressed(int key)
 	}
 
 	// Pauses the particles
+
+	// Pauses the particles
 	if (key == 's' && !recorder.isOnReplay())
 	{
 		stop = !stop;
@@ -248,25 +252,17 @@ void ofApp::keyPressed(int key)
 	}
 
 	// Increase the velocity of particles
+
+	// Increases the velocity of particles
 	if (key == 'd' && !recorder.isOnReplay())
 	{
-		for (unsigned int i = 0; i < p.size(); i++)
-		{
-			p[i].vel.x = p[i].vel.x * 2;
-			p[i].vel.y = p[i].vel.y * 2;
-		}
-		recorder.record(key);
+		increaseVelocityFactor = increaseVelocityFactor * 2;
 	}
 
 	// Decreases the velocity of particles
-	if (key == 'a' && !recorder.isOnReplay())
+	if (key == 'a')
 	{
-		for (unsigned int i = 0; i < p.size(); i++)
-		{
-			p[i].vel.x = p[i].vel.x / 2;
-			p[i].vel.y = p[i].vel.y / 2;
-		}
-		recorder.record(key);
+		increaseVelocityFactor = increaseVelocityFactor / 2;
 	}
 
 	// Toggles color of particles from: red -> green -> blue and returns to red after blue
@@ -314,6 +310,7 @@ void ofApp::keyPressed(int key)
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key)
 {
+
 	this->colorToggleFlag = false;
 }
 
