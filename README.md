@@ -3,6 +3,7 @@ This project is based on the OpenFrameworks Particle example.
  This repository is part of a Programming Assignment for the Advanced Programming Course.
  The purpose of this project is to help the student create practical programming skills by implementing
  changes to the base code that require strong understanding of the concepts discussed in class.
+
 ## Setup
 1. Clone this project inside an OpenFrameworks installation's "apps/myApps/" directory
 2. Run the command "make" in the terminal or the "Build" Task in VSCode.
@@ -41,12 +42,11 @@ If you have any notes to add for your TA about the project specs or creative add
 <p>+ An indicator will also appear for when you are replaying.</p>
 
 <b>bonus explanation</b>
-<p>+ All key actions have a corresponding button in the screen with an indicator of the current state of the button and its action.</p>
-<p>+ You can enable the <code>"drag magnifier"</code> by clicking the button <code>"select: enable"</code>. This will disable the select mode of the magnifier. If you left click inside the area of the rectangle, you can drag it anywhere inside the screen.</p>
-<p>+ You can replay saved replays by clicking <code>"playlist: 1"</code>. You would have to press <code>"save record"</code> in order to use this button after you record they keys from phase 3. Every time you press <code>"playList: 1"</code>, it will move to the next replay cycling again when you reach end of playlist.</p>
+<p>+ You can enable the <code>"drag magnifier"</code> by pressing <code>"l"</code> to activate the movement of the magnifier box.If you left click inside the area of the rectangle, you can drag it anywhere inside the screen.</p>
 
 
 
 by:
-Alfredo D. Soto Velez
-glorian :)
+Partner A: Alfredo D. Soto Vélez Institutional Email: alfredo.soto2@upr.edu
+Partner B: Glorián M. Serrano Ortiz Institutional Email: glorian.serrano1@upr.edu
+
